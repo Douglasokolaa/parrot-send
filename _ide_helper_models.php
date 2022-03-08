@@ -12,6 +12,30 @@
 
 namespace App\Models{
 /**
+ * App\Models\ContactGroup
+ *
+ * @property int $id
+ * @property int $team_id
+ * @property string $name
+ * @property \App\Enums\ContactGroupStatus $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Database\Factories\ContactGroupFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|ContactGroup newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ContactGroup newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ContactGroup query()
+ * @method static \Illuminate\Database\Eloquent\Builder|ContactGroup whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ContactGroup whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ContactGroup whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ContactGroup whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ContactGroup whereTeamId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ContactGroup whereUpdatedAt($value)
+ */
+	class ContactGroup extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\Membership
  *
  * @property int $id
@@ -43,6 +67,8 @@ namespace App\Models{
  * @property bool $personal_team
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ContactGroup[] $contactGroups
+ * @property-read int|null $contact_groups_count
  * @property-read \App\Models\User|null $owner
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\TeamInvitation[] $teamInvitations
  * @property-read int|null $team_invitations_count
