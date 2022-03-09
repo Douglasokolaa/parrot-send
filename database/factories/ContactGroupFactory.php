@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Enums\ContactGroupStatus;
+use App\Models\Team;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,9 @@ class ContactGroupFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->word,
+            'status' => $this->faker->randomElement(ContactGroupStatus::asValidationArray()),
+            'team_id' => Team::factory()->create()->id
         ];
     }
 }

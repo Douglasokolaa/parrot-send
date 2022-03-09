@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Contact;
 
+use Illuminate\Routing\Redirector;
 use Livewire\Component;
 use function view;
 
@@ -13,7 +14,7 @@ class CreateContactGroupForm extends Component
         'name' => ['required', 'max:256']
     ];
 
-    public function createGroup(): void
+    public function createGroup(): Redirector
     {
         $this->validate();
 
@@ -22,6 +23,8 @@ class CreateContactGroupForm extends Component
             'name'    => $this->name,
             'team_id' => $team->id
         ]);
+
+        return redirect(route('contact-groups.index'));
     }
 
     public function render()

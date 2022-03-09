@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactGroupController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,4 +21,6 @@ Route::get('/', function () {
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/dashboard', DashboardController::class)->name('dashboard');
+
+    Route::resource('contact-groups', ContactGroupController::class)->except(['store', 'update']);
 });
