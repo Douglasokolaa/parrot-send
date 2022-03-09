@@ -3,28 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\ContactGroup;
-use Illuminate\Http\Request;
 
 class ContactGroupController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $contactGroups = auth()->user()->currentTeam->contactGroups()->paginate();
+        return view('contact.group.index', compact('contactGroups'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return view('contact.group.create');
     }
 
     /**
@@ -54,10 +44,13 @@ class ContactGroupController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\ContactGroup  $contactGroup
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
     public function destroy(ContactGroup $contactGroup)
     {
-        //
+        abort_unless($contactGroup->team->is(auth()->user()->currentTeam), 403);
+
+        $contactGroup->delete();
+        return back();
     }
 }

@@ -1,13 +1,13 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Create Contact group') }}
+            {{ __('Contact groups') }}
         </h2>
     </x-slot>
 
     <div>
         <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
-            @livewire('contact.create-contact-group-form')
+            <a href="{{ route('contact-groups.create') }}">Create Group</a>
         </div>
     </div>
 </x-app-layout>

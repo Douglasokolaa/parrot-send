@@ -1,5 +1,5 @@
 <div>
-    <form wire:submit.prevent="createGroup">
+    <form id="create-contact-group-form" wire:submit.prevent="createGroup">
         <input type="text" wire:model="name">
         @error('name') <span class="error">{{ $message }}</span> @enderror
 
