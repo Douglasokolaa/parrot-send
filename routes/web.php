@@ -19,5 +19,5 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'invoke'])->name('dashboard');
+    Route::get('/dashboard', DashboardController::class)->name('dashboard');
 });
