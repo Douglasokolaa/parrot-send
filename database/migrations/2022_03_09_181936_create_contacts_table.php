@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->string('last_name')->nullable();
             $table->string('phone_e164');
             $table->string('phone_national');
-            $table->string('phone_normalized');
+            $table->string('phone');
             $table->string('phone_country');
             $table->string('team_id');
             $table->string('email')->nullable();

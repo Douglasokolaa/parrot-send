@@ -47,11 +47,7 @@ class CreateContactForm extends Component
     {
         $validated = $this->validate();
         $team = auth()->user()->currentTeam;
-        $contact = new Contact($validated);
-        $contact->team_id = $team->id;
-        $contact->phone_country = $validated['phone_country'];
-        $contact->phone = $validated['phone'];
-        $contact->save();
+        $team->contacts()->create($validated);
         return redirect(route('contacts.index'));
     }
 

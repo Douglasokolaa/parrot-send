@@ -24,9 +24,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/dashboard', DashboardController::class)->name('dashboard');
 
     Route::resource('contact-groups', ContactGroupController::class)->except(['store', 'update']);
+    Route::resource('contacts', ContactController::class)->except(['store', 'update']);
 
-    Route::controller(ContactController::class)->group(function () {
-        Route::get('/contacts', 'index')->name('contacts.index');
-        Route::get('/contacts/create', 'create')->name('contacts.create');
-    });
 });

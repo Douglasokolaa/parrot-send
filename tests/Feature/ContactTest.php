@@ -1,8 +1,11 @@
-<?php /** @noinspection ReturnTypeCanBeDeclaredInspection */
+<?php
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @noinspection ReturnTypeCanBeDeclaredInspection */
 
 namespace Tests\Feature;
 
 use App\Http\Livewire\Contact\CreateContactForm;
+use App\Http\Livewire\Contact\UpdateContactForm;
 use App\Models\Contact;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -48,7 +51,64 @@ class ContactTest extends TestCase
         $response->assertRedirect();
         $this->assertCount(1, Contact::all());
         $this->assertEquals('John', Contact::latest('id')->first()->first_name);
-        $this->assertEquals('08130000000', Contact::latest('id')->first()->phone_normalized);
+        $this->assertEquals('08130000000', Contact::latest('id')->first()->phone);
         self::assertTrue($user->currentTeam->is(Contact::latest('id')->first()->team));
+    }
+
+    public function testEditContactView()
+    {
+        $this->actingAs($user = User::factory()->withPersonalTeam()->create());
+        $contact = Contact::factory()->create();
+        $response = $this->get("/contacts/$contact->id/edit");
+
+        $this->assertAuthenticatedAs($user);
+        $response->assertOk();
+        $response->assertSee('Edit Contact');
+        $response->assertViewIs('contact.edit');
+        $response->assertViewHas('contact');
+    }
+
+    public function testUpdateContact()
+    {
+        $this->actingAs($user = User::factory()->withPersonalTeam()->create());
+        $contact = Contact::factory()->create();
+        $response = Livewire::test(UpdateContactForm::class, compact('contact'))
+            ->set('contact.phone', '08130000000')
+            ->set('contact.phone_country', 'NG')
+            ->call('update');
+
+        $response->assertHasNoErrors();
+        $response->assertRedirect();
+        $this->assertAuthenticatedAs($user);
+        $this->assertEquals('08130000000', Contact::latest('id')->first()->phone);
+        $this->assertEquals('NG', Contact::latest('id')->first()->phone_country);
+    }
+
+    public function testListContact()
+    {
+        $this->withoutExceptionHandling();
+        $this->actingAs($user = User::factory()->withPersonalTeam()->create());
+        Contact::factory()->count(5);
+        Contact::factory()->count(5)->create(['team_id' => $user->currentTeam]);
+        $response = $this->get("/contacts");
+
+        $this->assertAuthenticatedAs($user);
+        $response->assertOk();
+        $response->assertViewIs('contact.index');
+        $response->assertViewHas('contacts', $user->currentTeam->contacts()->paginate());
+        $response->assertSee('Contacts');
+    }
+
+    public function testDeleteContact()
+    {
+        $this->withoutExceptionHandling();
+        $this->actingAs($user = User::factory()->withPersonalTeam()->create());
+        $contact = Contact::factory()->create(['team_id' => $user->currentTeam]);
+        $response = $this->delete("/contacts/$contact->id");
+
+        $this->assertAuthenticatedAs($user);
+        $response->assertRedirect();
+        $response->assertSessionHas('success');
+        self::assertCount(0, Contact::all());
     }
 }

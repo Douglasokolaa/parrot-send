@@ -16,8 +16,8 @@ class Contact extends Model
         'first_name',
         'phone_national',
         'phone_e164',
+        'phone',
         'address',
-        'phone_normalized',
         'state',
         'unit',
         'city',
@@ -38,10 +38,9 @@ class Contact extends Model
     {
         static::saving(function (Contact $contact) {
             if ($contact->phone && $contact->isDirty('phone')) {
-                $contact->phone_normalized = preg_replace('[^0-9]', '', $contact->phone);
                 $contact->phone_national = preg_replace('[^0-9]', '', phone($contact->phone, $contact->phone_country)->formatNational());
                 $contact->phone_e164 = phone($contact->phone, $contact->phone_country)->formatE164();
-                unset($contact->phone);
+                $contact->phone = preg_replace('[^0-9]', '', $contact->phone);
             }
         });
     }
