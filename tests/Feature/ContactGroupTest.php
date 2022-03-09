@@ -8,7 +8,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
 
-class testContactGroups extends TestCase
+class ContactGroupTest extends TestCase
 {
     use RefreshDatabase;
 
