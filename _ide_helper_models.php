@@ -12,6 +12,57 @@
 
 namespace App\Models{
 /**
+ * App\Models\Contact
+ *
+ * @property int $id
+ * @property string $first_name
+ * @property string|null $last_name
+ * @property \Propaganistas\LaravelPhone\PhoneNumber|null $phone_e164
+ * @property string $phone_national
+ * @property string $phone_normalized
+ * @property string $phone_country
+ * @property string $team_id
+ * @property string|null $email
+ * @property string|null $address
+ * @property string|null $city
+ * @property string|null $unit
+ * @property string|null $lga
+ * @property string|null $state
+ * @property string|null $region
+ * @property string|null $country
+ * @property string|null $business
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Team|null $team
+ * @method static \Database\Factories\ContactFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact whereAddress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact whereBusiness($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact whereCity($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact whereCountry($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact whereFirstName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact whereLastName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact whereLga($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact wherePhoneCountry($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact wherePhoneE164($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact wherePhoneNational($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact wherePhoneNormalized($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact whereRegion($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact whereState($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact whereTeamId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact whereUnit($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact whereUpdatedAt($value)
+ */
+	class Contact extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\ContactGroup
  *
  * @property int $id
@@ -20,6 +71,7 @@ namespace App\Models{
  * @property \App\Enums\ContactGroupStatus $status
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Team|null $team
  * @method static \Database\Factories\ContactGroupFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|ContactGroup newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ContactGroup newQuery()
@@ -69,6 +121,8 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ContactGroup[] $contactGroups
  * @property-read int|null $contact_groups_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Contact[] $contacts
+ * @property-read int|null $contacts_count
  * @property-read \App\Models\User|null $owner
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\TeamInvitation[] $teamInvitations
  * @property-read int|null $team_invitations_count

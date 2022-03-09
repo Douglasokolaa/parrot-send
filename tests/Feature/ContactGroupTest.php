@@ -54,7 +54,8 @@ class ContactGroupTest extends TestCase
 
         $this->assertAuthenticatedAs($user);
         $response->assertOk();
-        $response->assertSeeText('Contact groups');
+        $response->assertViewIs('contact.group.index');
+        $response->assertViewHas('contactGroups');
     }
 
     public function testViewCreateContactGroup()
@@ -64,8 +65,7 @@ class ContactGroupTest extends TestCase
 
         $this->assertAuthenticatedAs($user);
         $response->assertOk();
-        $response->assertSeeText('Create Contact group');
-//        $response->assertSeeText('create-contact-group-form');
+        $response->assertViewIs('contact.group.create');
     }
 
     public function testDeleteContactGroup()

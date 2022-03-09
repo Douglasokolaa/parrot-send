@@ -47,4 +47,9 @@ class Team extends JetstreamTeam
     {
         return $this->hasMany(ContactGroup::class, 'team_id');
     }
+
+    public function contacts(): HasMany
+    {
+        return $this->hasMany(Contact::class);
+    }
 }
