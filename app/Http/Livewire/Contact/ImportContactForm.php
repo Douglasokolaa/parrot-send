@@ -1,6 +1,6 @@
 <?php /** @noinspection PhpMissingFieldTypeInspection */
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Contact;
 
 use App\Imports\ContactsImport;
 use App\Models\ContactGroup;
@@ -13,6 +13,9 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Routing\Redirector;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use function auth;
+use function redirect;
+use function view;
 
 class ImportContactForm extends Component
 {
@@ -43,6 +46,6 @@ class ImportContactForm extends Component
     public function render(): Factory|View|Application
     {
         $groups = ContactGroup::pluck('name', 'id');
-        return view('livewire.import-contact-form', compact('groups'));
+        return view('livewire.contact.import-contact-form', compact('groups'));
     }
 }

@@ -5,8 +5,8 @@
 namespace Tests\Feature;
 
 use App\Http\Livewire\Contact\CreateContactForm;
+use App\Http\Livewire\Contact\ImportContactForm;
 use App\Http\Livewire\Contact\UpdateContactForm;
-use App\Http\Livewire\ImportContactForm;
 use App\Models\Contact;
 use App\Models\ContactGroup;
 use App\Models\User;
