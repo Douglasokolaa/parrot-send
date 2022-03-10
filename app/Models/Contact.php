@@ -50,4 +50,9 @@ class Contact extends Model
     {
         return $this->belongsTo(Team::class);
     }
+
+    public function group(): BelongsTo
+    {
+        return $this->belongsTo(ContactGroup::class, 'contact_group_id');
+    }
 }

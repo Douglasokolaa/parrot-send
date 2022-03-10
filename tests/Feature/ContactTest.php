@@ -6,10 +6,14 @@ namespace Tests\Feature;
 
 use App\Http\Livewire\Contact\CreateContactForm;
 use App\Http\Livewire\Contact\UpdateContactForm;
+use App\Http\Livewire\ImportContactForm;
 use App\Models\Contact;
+use App\Models\ContactGroup;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
 use Livewire;
+use Storage;
 use Tests\TestCase;
 
 class ContactTest extends TestCase
@@ -110,5 +114,23 @@ class ContactTest extends TestCase
         $response->assertRedirect();
         $response->assertSessionHas('success');
         self::assertCount(0, Contact::all());
+    }
+
+    public function testImportContacts()
+    {
+        $this->actingAs($user = User::factory()->withPersonalTeam()->create());
+        $group = ContactGroup::factory()->create(['team_id' => $user->currentTeam]);
+        $content = Storage::drive('test')->get('contacts.csv');
+        $file = UploadedFile::fake()->createWithContent('test.csv', $content);
+
+        $response = Livewire::test(ImportContactForm::class)
+            ->set('contact_group', $group->id)
+            ->set('file', $file)
+            ->call('import');
+
+        $response->assertHasNoErrors();
+        $response->assertRedirect();
+        $this->assertAuthenticatedAs($user);
+        self::assertCount(3, $user->currentTeam->contacts);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\ContactGroup;
 use App\Models\Team;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Propaganistas\LaravelPhone\PhoneNumber;
@@ -36,6 +37,7 @@ class ContactFactory extends Factory
             'phone_country'  => $phone->getCountry(),
             'phone'          => $phone->formatNational(),
             'phone_national' => $phone->formatNational(),
+            'contact_group_id' => fn() => ContactGroup::factory()->create()->id
         ];
     }
 }

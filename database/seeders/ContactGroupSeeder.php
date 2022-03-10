@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\ContactGroup;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -14,6 +15,6 @@ class ContactGroupSeeder extends Seeder
      */
     public function run()
     {
-        //
+        ContactGroup::factory(5)->create();
     }
 }
