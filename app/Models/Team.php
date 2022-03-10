@@ -52,4 +52,9 @@ class Team extends JetstreamTeam
     {
         return $this->hasMany(Contact::class);
     }
+
+    public function senders(): HasMany
+    {
+        return $this->hasMany(Sender::class);
+    }
 }

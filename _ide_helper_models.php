@@ -114,6 +114,31 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * App\Models\Sender
+ *
+ * @property int $id
+ * @property string $name
+ * @property bool $enabled
+ * @property int $team_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Team|null $team
+ * @method static \Database\Factories\SenderFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Sender newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Sender newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Sender query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Sender whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Sender whereEnabled($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Sender whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Sender whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Sender whereTeamId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Sender whereUpdatedAt($value)
+ */
+	class Sender extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\Team
  *
  * @property int $id
@@ -127,6 +152,8 @@ namespace App\Models{
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Contact[] $contacts
  * @property-read int|null $contacts_count
  * @property-read \App\Models\User|null $owner
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Sender[] $senders
+ * @property-read int|null $senders_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\TeamInvitation[] $teamInvitations
  * @property-read int|null $team_invitations_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users

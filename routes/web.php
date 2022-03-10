@@ -3,6 +3,7 @@
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ContactGroupController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SenderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,5 +26,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::resource('contact-groups', ContactGroupController::class)->except(['store', 'update']);
     Route::resource('contacts', ContactController::class)->except(['store', 'update']);
+    Route::resource('senders', SenderController::class)->except(['store', 'update']);
 
 });
