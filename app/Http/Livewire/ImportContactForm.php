@@ -27,7 +27,7 @@ class ImportContactForm extends Component
     {
         return [
             'contact_group' => ['nullable', 'exists:contact_groups,id'],
-            'file'          => ['required', 'file:csv,xlsx,txt']
+            'file'          => ['required', 'file:csv,xlsx,txt,xml']
         ];
     }
 
