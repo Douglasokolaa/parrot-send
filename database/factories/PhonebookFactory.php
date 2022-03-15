@@ -2,14 +2,14 @@
 
 namespace Database\Factories;
 
-use App\Enums\ContactGroupStatus;
+use App\Enums\PhoneBookStatus;
 use App\Models\Team;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ContactGroup>
  */
-class ContactGroupFactory extends Factory
+class PhonebookFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -20,7 +20,7 @@ class ContactGroupFactory extends Factory
     {
         return [
             'name' => $this->faker->word,
-            'status' => $this->faker->randomElement(ContactGroupStatus::asValidationArray()),
+            'status' => $this->faker->randomElement(PhoneBookStatus::asValidationArray()),
             'team_id' => Team::factory()->create()->id
         ];
     }

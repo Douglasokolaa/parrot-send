@@ -22,7 +22,7 @@ namespace App\Models{
  * @property string $phone
  * @property string $phone_country
  * @property string $team_id
- * @property string|null $contact_group_id
+ * @property string $phonebook_id
  * @property string|null $email
  * @property string|null $address
  * @property string|null $city
@@ -34,7 +34,7 @@ namespace App\Models{
  * @property string|null $business
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\ContactGroup|null $group
+ * @property-read \App\Models\Phonebook|null $phonebook
  * @property-read \App\Models\Team|null $team
  * @method static \Database\Factories\ContactFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Contact newModelQuery()
@@ -43,7 +43,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereAddress($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereBusiness($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereCity($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Contact whereContactGroupId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereCountry($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereEmail($value)
@@ -55,6 +54,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Contact wherePhoneCountry($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Contact wherePhoneE164($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Contact wherePhoneNational($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact wherePhonebookId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereRegion($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereState($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereTeamId($value)
@@ -62,31 +62,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereUpdatedAt($value)
  */
 	class Contact extends \Eloquent {}
-}
-
-namespace App\Models{
-/**
- * App\Models\ContactGroup
- *
- * @property int $id
- * @property int $team_id
- * @property string $name
- * @property \App\Enums\ContactGroupStatus $status
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Team|null $team
- * @method static \Database\Factories\ContactGroupFactory factory(...$parameters)
- * @method static \Illuminate\Database\Eloquent\Builder|ContactGroup newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|ContactGroup newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|ContactGroup query()
- * @method static \Illuminate\Database\Eloquent\Builder|ContactGroup whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ContactGroup whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ContactGroup whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ContactGroup whereStatus($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ContactGroup whereTeamId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ContactGroup whereUpdatedAt($value)
- */
-	class ContactGroup extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -110,6 +85,31 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Membership whereUserId($value)
  */
 	class Membership extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\Phonebook
+ *
+ * @property int $id
+ * @property int $team_id
+ * @property string $name
+ * @property \App\Enums\PhoneBookStatus $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Team|null $team
+ * @method static \Database\Factories\PhonebookFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Phonebook newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Phonebook newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Phonebook query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Phonebook whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Phonebook whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Phonebook whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Phonebook whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Phonebook whereTeamId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Phonebook whereUpdatedAt($value)
+ */
+	class Phonebook extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -147,11 +147,11 @@ namespace App\Models{
  * @property bool $personal_team
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ContactGroup[] $contactGroups
- * @property-read int|null $contact_groups_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Contact[] $contacts
  * @property-read int|null $contacts_count
  * @property-read \App\Models\User|null $owner
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Phonebook[] $phonebooks
+ * @property-read int|null $phonebooks_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Sender[] $senders
  * @property-read int|null $senders_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\TeamInvitation[] $teamInvitations

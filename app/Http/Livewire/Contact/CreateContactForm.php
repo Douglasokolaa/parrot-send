@@ -2,13 +2,14 @@
 
 namespace App\Http\Livewire\Contact;
 
-use App\Models\Contact;
+use App\Models\Phonebook;
 use Illuminate\Routing\Redirector;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 
 class CreateContactForm extends Component
 {
+    public Phonebook $phonebook;
 
     public $first_name;
     public $last_name;
@@ -43,12 +44,17 @@ class CreateContactForm extends Component
         ];
     }
 
+    public function mount(Phonebook $phonebook): void
+    {
+        $this->phonebook = $phonebook;
+    }
+
     public function saveContact(): Redirector
     {
         $validated = $this->validate();
-        $team = auth()->user()->currentTeam;
-        $team->contacts()->create($validated);
-        return redirect(route('contacts.index'));
+        $validated['team_id'] = auth()->user()->current_team_id;
+        $this->phonebook->contacts()->create($validated);
+        return redirect(route('phonebooks.index'));
     }
 
     public function render()

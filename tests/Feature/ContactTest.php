@@ -8,7 +8,7 @@ use App\Http\Livewire\Contact\CreateContactForm;
 use App\Http\Livewire\Contact\ImportContactForm;
 use App\Http\Livewire\Contact\UpdateContactForm;
 use App\Models\Contact;
-use App\Models\ContactGroup;
+use App\Models\Phonebook;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
@@ -34,8 +34,8 @@ class ContactTest extends TestCase
     public function testCreateContact()
     {
         $this->actingAs($user = User::factory()->withPersonalTeam()->create());
-
-        $response = Livewire::test(CreateContactForm::class)
+        $phonebook = Phonebook::factory()->create(['team_id' => $user->currentTeam->id]);
+        $response = Livewire::test(CreateContactForm::class, compact('phonebook'))
             ->set('first_name', 'John')
             ->set('last_name', 'Doe')
             ->set('phone', '08130000000')
@@ -56,7 +56,7 @@ class ContactTest extends TestCase
         $this->assertCount(1, Contact::all());
         $this->assertEquals('John', Contact::latest('id')->first()->first_name);
         $this->assertEquals('08130000000', Contact::latest('id')->first()->phone);
-        self::assertTrue($user->currentTeam->is(Contact::latest('id')->first()->team));
+        self::assertTrue($phonebook->is(Contact::latest('id')->first()->phonebook));
     }
 
     public function testEditContactView()
@@ -88,21 +88,6 @@ class ContactTest extends TestCase
         $this->assertEquals('NG', Contact::latest('id')->first()->phone_country);
     }
 
-    public function testListContact()
-    {
-        $this->withoutExceptionHandling();
-        $this->actingAs($user = User::factory()->withPersonalTeam()->create());
-        Contact::factory()->count(5);
-        Contact::factory()->count(5)->create(['team_id' => $user->currentTeam]);
-        $response = $this->get("/contacts");
-
-        $this->assertAuthenticatedAs($user);
-        $response->assertOk();
-        $response->assertViewIs('contact.index');
-        $response->assertViewHas('contacts', $user->currentTeam->contacts()->paginate());
-        $response->assertSee('Contacts');
-    }
-
     public function testDeleteContact()
     {
         $this->withoutExceptionHandling();
@@ -119,12 +104,12 @@ class ContactTest extends TestCase
     public function testImportContacts()
     {
         $this->actingAs($user = User::factory()->withPersonalTeam()->create());
-        $group = ContactGroup::factory()->create(['team_id' => $user->currentTeam]);
+        $phonebook = Phonebook::factory()->create(['team_id' => $user->currentTeam]);
         $content = Storage::drive('test')->get('contacts.csv');
         $file = UploadedFile::fake()->createWithContent('test.csv', $content);
 
         $response = Livewire::test(ImportContactForm::class)
-            ->set('contact_group', $group->id)
+            ->set('phonebook', $phonebook->id)
             ->set('file', $file)
             ->call('import');
 

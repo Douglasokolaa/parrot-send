@@ -20,8 +20,8 @@ return new class extends Migration {
             $table->string('phone_national');
             $table->string('phone');
             $table->string('phone_country');
-            $table->string('team_id');
-            $table->string('contact_group_id')->nullable();
+            $table->foreignId('team_id');
+            $table->foreignId('phonebook_id');
             $table->string('email')->nullable();
             $table->string('address')->nullable();
             $table->string('city')->nullable();

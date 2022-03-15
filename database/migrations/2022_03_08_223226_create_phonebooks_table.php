@@ -1,6 +1,6 @@
 <?php
 
-use App\Enums\ContactGroupStatus;
+use App\Enums\PhoneBookStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,11 +14,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('contact_groups', function (Blueprint $table) {
+        Schema::create('phonebooks', function (Blueprint $table) {
             $table->id();
             $table->foreignId('team_id');
             $table->string('name');
-            $table->tinyInteger('status')->default(ContactGroupStatus::Active->value);
+            $table->tinyInteger('status')->default(PhoneBookStatus::Active->value);
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contact_groups');
+        Schema::dropIfExists('phonebooks');
     }
 };

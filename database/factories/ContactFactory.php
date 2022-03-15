@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\ContactGroup;
+use App\Models\Phonebook;
 use App\Models\Team;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Propaganistas\LaravelPhone\PhoneNumber;
@@ -23,7 +23,7 @@ class ContactFactory extends Factory
         return [
             'first_name'     => $this->faker->firstName,
             'last_name'      => $this->faker->lastName,
-            'team_id'        => Team::factory()->create(),
+            'team_id'        => Team::factory()->create()->id,
             'phone_e164'     => $this->faker->e164PhoneNumber,
             'lga'            => $this->faker->city,
             'unit'           => $this->faker->word,
@@ -37,7 +37,7 @@ class ContactFactory extends Factory
             'phone_country'  => $phone->getCountry(),
             'phone'          => $phone->formatNational(),
             'phone_national' => $phone->formatNational(),
-            'contact_group_id' => fn() => ContactGroup::factory()->create()->id
+            'phonebook_id' => Phonebook::factory()->create()->id
         ];
     }
 }

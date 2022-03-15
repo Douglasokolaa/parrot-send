@@ -27,7 +27,8 @@ class Contact extends Model
         'country',
         'region',
         'phone_country',
-        'team_id'
+        'team_id',
+        'phonebook_id'
     ];
 
     protected $casts = [
@@ -51,8 +52,8 @@ class Contact extends Model
         return $this->belongsTo(Team::class);
     }
 
-    public function group(): BelongsTo
+    public function phonebook(): BelongsTo
     {
-        return $this->belongsTo(ContactGroup::class, 'contact_group_id');
+        return $this->belongsTo(Phonebook::class);
     }
 }

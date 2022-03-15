@@ -1,11 +1,11 @@
 <div>
     <form wire:submit.prevent="save">
         <label>
-            <input type="text" wire:model="contactGroup.name">
+            <input type="text" wire:model="phonebook.name">
         </label>
 
         <label>
-            <select class="app-solid-select" wire:model="contactGroup.status" name="status" required>
+            <select class="app-solid-select" wire:model="phonebook.status" name="status" required>
                 <option value="">Status</option>
                 @foreach($statuses as $status)
                     <option value="{{ $status->value }}">{{ $status->name }}</option>

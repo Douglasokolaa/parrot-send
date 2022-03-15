@@ -40,7 +40,7 @@ class UpdateContactForm extends Component
     {
         $validated = $this->validate();
         $this->contact->update($validated);
-        return redirect()->route('contacts.index')->with('success', 'Contact Updated');
+        return redirect()->route('phonebooks.index')->with('success', 'Contact Updated');
     }
 
     public function render()

@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\ContactGroup;
+use App\Models\Phonebook;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class ContactGroupSeeder extends Seeder
+class PhonebookSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,6 +15,6 @@ class ContactGroupSeeder extends Seeder
      */
     public function run()
     {
-        ContactGroup::factory(5)->create();
+        Phonebook::factory(5)->create();
     }
 }

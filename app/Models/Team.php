@@ -43,9 +43,9 @@ class Team extends JetstreamTeam
         'deleted' => TeamDeleted::class,
     ];
 
-    public function contactGroups(): HasMany
+    public function phonebooks(): HasMany
     {
-        return $this->hasMany(ContactGroup::class, 'team_id');
+        return $this->hasMany(Phonebook::class, 'team_id');
     }
 
     public function contacts(): HasMany

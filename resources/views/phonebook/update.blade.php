@@ -1,13 +1,13 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Update group') }}
+            {{ __('Update Phonebook') }}
         </h2>
     </x-slot>
 
     <div>
         <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
-            <livewire:contact.update-contact-group-form :contact-group="$contactGroup" />
+            <livewire:phonebook.update-phonebook-form :phonebook="$phonebook" />
         </div>
     </div>
 </x-app-layout>

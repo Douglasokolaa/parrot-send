@@ -1,10 +1,13 @@
 <?php
 
 use App\Http\Controllers\ContactController;
-use App\Http\Controllers\ContactGroupController;
+use App\Http\Controllers\PhonebookContactController;
+use App\Http\Controllers\PhoneBookController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SenderController;
 use Illuminate\Support\Facades\Route;
+use Parrot\Sms\SmsProvider;
+use Parrot\Sms\Termii;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,8 +27,13 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/dashboard', DashboardController::class)->name('dashboard');
 
-    Route::resource('contact-groups', ContactGroupController::class)->except(['store', 'update']);
-    Route::resource('contacts', ContactController::class)->except(['store', 'update']);
+    Route::resource('phonebooks', PhoneBookController::class)->except(['store', 'update']);
+    Route::resource('contacts', ContactController::class)->except(['store', 'update', 'index']);
     Route::resource('senders', SenderController::class)->except(['store', 'update']);
+
+    Route::controller(PhonebookContactController::class)->group(function () {
+        Route::get('phonebooks/{phonebook}/contacts', 'index')->name('phonebooks.contacts.index');
+    });
+});
 
 });

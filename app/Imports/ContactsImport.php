@@ -18,13 +18,13 @@ class ContactsImport implements ToModel, WithHeadingRow, WithBatchInserts, WithC
 {
     use Importable, SkipsFailures;
 
-    private string|int|null $contact_group;
+    private string|int|null $phonebook;
     private Team $team_id;
 
-    public function __construct(Team $team_id, string|int $contact_group = null)
+    public function __construct(Team $team_id, string|int $phonebook = null)
     {
         $this->team_id = $team_id;
-        $this->contact_group = $contact_group;
+        $this->phonebook = $phonebook;
     }
 
     public function model(array $row): Contact|null
@@ -49,7 +49,7 @@ class ContactsImport implements ToModel, WithHeadingRow, WithBatchInserts, WithC
             'country'          => $row['country'],
             'region'           => $row['region'],
             'team_id'          => $this->team_id->id,
-            'contact_group_id' => $this->contact_group,
+            'phonebook_id' => $this->phonebook,
         ]);
     }
 

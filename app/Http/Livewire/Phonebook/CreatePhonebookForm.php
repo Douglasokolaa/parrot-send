@@ -1,12 +1,15 @@
 <?php
 
-namespace App\Http\Livewire\Contact;
+namespace App\Http\Livewire\Phonebook;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
 use Livewire\Component;
+use function auth;
+use function redirect;
 use function view;
 
-class CreateContactGroupForm extends Component
+class CreatePhonebookForm extends Component
 {
     public $name;
 
@@ -14,21 +17,21 @@ class CreateContactGroupForm extends Component
         'name' => ['required', 'max:256']
     ];
 
-    public function createGroup(): Redirector
+    public function create(): Redirector|RedirectResponse
     {
         $this->validate();
 
         $team = auth()->user()->currentTeam;
-        $team->contactGroups()->create([
+        $team->phonebooks()->create([
             'name'    => $this->name,
             'team_id' => $team->id
         ]);
 
-        return redirect(route('contact-groups.index'));
+        return redirect()->route('phonebooks.index');
     }
 
     public function render()
     {
-        return view('livewire.contact.create-contact-group-form');
+        return view('livewire.phonebook.create-form');
     }
 }

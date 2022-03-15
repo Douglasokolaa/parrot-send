@@ -7,12 +7,6 @@ use Illuminate\Http\RedirectResponse;
 
 class ContactController extends Controller
 {
-    public function index()
-    {
-        $contacts = auth()->user()->currentTeam->contacts()->paginate();
-        return view('contact.index', compact('contacts'));
-    }
-
     public function create()
     {
         return view('contact.create');
