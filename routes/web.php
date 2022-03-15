@@ -36,4 +36,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     });
 });
 
+Route::get('testq', function (SmsProvider $provider) {
+    $provider->sendMessage(collect());
 });

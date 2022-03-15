@@ -31,4 +31,9 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'termii' => [
+        'api-key' => env('TERMII_API_KEY'),
+        'base-url' => env('TERMII_BASE_URL', ''),
+    ]
+
 ];
