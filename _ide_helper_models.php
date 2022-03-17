@@ -12,6 +12,36 @@
 
 namespace App\Models{
 /**
+ * App\Models\Community
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $code
+ * @property string $state_id
+ * @property string $lga_id
+ * @property string $country_iso2
+ * @property string $state_code
+ * @property string $lga_code
+ * @property string|null $other_name
+ * @method static \Database\Factories\CommunityFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Community newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Community newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Community query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Community whereCode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Community whereCountryIso2($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Community whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Community whereLgaCode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Community whereLgaId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Community whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Community whereOtherName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Community whereStateCode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Community whereStateId($value)
+ */
+	class Community extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\Contact
  *
  * @property int $id
@@ -21,8 +51,8 @@ namespace App\Models{
  * @property string $phone_national
  * @property string $phone
  * @property string $phone_country
- * @property string $team_id
- * @property string $phonebook_id
+ * @property int $team_id
+ * @property int $phonebook_id
  * @property string|null $email
  * @property string|null $address
  * @property string|null $city
@@ -66,6 +96,64 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * App\Models\Country
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $iso2
+ * @property string $phone_code
+ * @property string $long_name
+ * @property string $iso3
+ * @property string $cctld
+ * @property string $numcode
+ * @property bool $un_member
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\State[] $states
+ * @property-read int|null $states_count
+ * @method static \Database\Factories\CountryFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Country newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Country newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Country query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Country whereCctld($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Country whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Country whereIso2($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Country whereIso3($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Country whereLongName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Country whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Country whereNumcode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Country wherePhoneCode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Country whereUnMember($value)
+ */
+	class Country extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\Lga
+ *
+ * @property int $id
+ * @property string $name
+ * @property string|null $code
+ * @property int $state_id
+ * @property string $country_iso2
+ * @property string $state_code
+ * @property string|null $other_name
+ * @method static \Database\Factories\LgaFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Lga newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Lga newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Lga query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Lga whereCode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Lga whereCountryIso2($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Lga whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Lga whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Lga whereOtherName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Lga whereStateCode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Lga whereStateId($value)
+ */
+	class Lga extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\Membership
  *
  * @property int $id
@@ -97,6 +185,8 @@ namespace App\Models{
  * @property \App\Enums\PhoneBookStatus $status
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Contact[] $contacts
+ * @property-read int|null $contacts_count
  * @property-read \App\Models\Team|null $team
  * @method static \Database\Factories\PhonebookFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Phonebook newModelQuery()
@@ -135,6 +225,28 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Sender whereUpdatedAt($value)
  */
 	class Sender extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\State
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $code
+ * @property string $country_iso2
+ * @property string|null $other_name
+ * @method static \Database\Factories\StateFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|State newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|State newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|State query()
+ * @method static \Illuminate\Database\Eloquent\Builder|State whereCode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|State whereCountryIso2($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|State whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|State whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|State whereOtherName($value)
+ */
+	class State extends \Eloquent {}
 }
 
 namespace App\Models{

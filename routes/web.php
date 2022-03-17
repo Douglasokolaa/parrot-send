@@ -6,8 +6,6 @@ use App\Http\Controllers\PhoneBookController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SenderController;
 use Illuminate\Support\Facades\Route;
-use Parrot\Sms\SmsProvider;
-use Parrot\Sms\Termii;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,8 +32,4 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::controller(PhonebookContactController::class)->group(function () {
         Route::get('phonebooks/{phonebook}/contacts', 'index')->name('phonebooks.contacts.index');
     });
-});
-
-Route::get('testq', function (SmsProvider $provider) {
-    $provider->sendMessage(collect());
 });
