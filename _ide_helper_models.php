@@ -177,6 +177,50 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * App\Models\Message
+ *
+ * @property int $id
+ * @property int $sender_id
+ * @property int $contact_id
+ * @property int $sent_by
+ * @property int $team_id
+ * @property string $message
+ * @property string $phone
+ * @property string $phone_e164
+ * @property int $pages
+ * @property int $status
+ * @property string $scheduled_at
+ * @property string|null $sent_at
+ * @property mixed|null $result
+ * @property string|null $cost
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Database\Factories\MessageFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Message newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Message newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Message query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Message whereContactId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Message whereCost($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Message whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Message whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Message whereMessage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Message wherePages($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Message wherePhone($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Message wherePhoneE164($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Message whereResult($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Message whereScheduledAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Message whereSenderId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Message whereSentAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Message whereSentBy($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Message whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Message whereTeamId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Message whereUpdatedAt($value)
+ */
+	class Message extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\Phonebook
  *
  * @property int $id
@@ -187,7 +231,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Contact[] $contacts
  * @property-read int|null $contacts_count
- * @property-read \App\Models\Team|null $team
+ * @property-read \App\Models\Team $team
  * @method static \Database\Factories\PhonebookFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Phonebook newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Phonebook newQuery()
@@ -212,7 +256,7 @@ namespace App\Models{
  * @property int $team_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Team|null $team
+ * @property-read \App\Models\Team $team
  * @method static \Database\Factories\SenderFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Sender newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Sender newQuery()
@@ -261,6 +305,8 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Contact[] $contacts
  * @property-read int|null $contacts_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Message[] $messages
+ * @property-read int|null $messages_count
  * @property-read \App\Models\User|null $owner
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Phonebook[] $phonebooks
  * @property-read int|null $phonebooks_count

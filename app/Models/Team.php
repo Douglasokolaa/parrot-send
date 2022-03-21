@@ -57,4 +57,9 @@ class Team extends JetstreamTeam
     {
         return $this->hasMany(Sender::class);
     }
+
+    public function messages(): HasMany
+    {
+        return $this->hasMany(Message::class);
+    }
 }

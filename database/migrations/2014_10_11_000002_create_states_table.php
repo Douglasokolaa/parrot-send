@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('code')->index();
             $table->string('country_iso2');
             $table->string('other_name')->nullable();
+
             $table->foreign('country_iso2')->references('iso2')->on('countries');
         });
     }
