@@ -1,10 +1,17 @@
-<?php
-
+<?php /** @noinspection ReturnTypeCanBeDeclaredInspection */
 
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
-it('can view dashboard', function () {
-    $this->actingAs(User::factory()->create())
-         ->get(route('dashboard'))
-         ->assertOk();
-});
+class DashboardTest extends \Tests\TestCase
+{
+    use RefreshDatabase;
+
+    public function testCanViewDashboard()
+    {
+        $this->actingAs(User::factory()->create())
+             ->get(route('dashboard'))
+             ->assertOk();
+    }
+
+}

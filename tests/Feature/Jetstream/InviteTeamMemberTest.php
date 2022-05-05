@@ -1,35 +1,46 @@
 <?php
 
+namespace Tests\Feature;
+
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;
 use Laravel\Jetstream\Mail\TeamInvitation;
+use Tests\TestCase;
 
-test('team members can be invited to team', function () {
-    Mail::fake();
+class InviteTeamMemberTest extends TestCase
+{
+    use RefreshDatabase;
 
-    $this->actingAs($user = User::factory()->withPersonalTeam()->create());
+    public function test_team_members_can_be_invited_to_team()
+    {
+        Mail::fake();
 
-    $response = $this->post('/teams/'.$user->currentTeam->id.'/members', [
-        'email' => 'test@example.com',
-        'role' => 'admin',
-    ]);
+        $this->actingAs($user = User::factory()->withPersonalTeam()->create());
 
-    Mail::assertSent(TeamInvitation::class);
+        $response = $this->post('/teams/'.$user->currentTeam->id.'/members', [
+            'email' => 'test@example.com',
+            'role' => 'admin',
+        ]);
 
-    expect($user->currentTeam->fresh()->teamInvitations)->toHaveCount(1);
-});
+        Mail::assertSent(TeamInvitation::class);
 
-test('team member invitations can be cancelled', function () {
-    Mail::fake();
+        $this->assertCount(1, $user->currentTeam->fresh()->teamInvitations);
+    }
 
-    $this->actingAs($user = User::factory()->withPersonalTeam()->create());
+    public function test_team_member_invitations_can_be_cancelled()
+    {
+        Mail::fake();
 
-    $invitation = $user->currentTeam->teamInvitations()->create([
-        'email' => 'test@example.com',
-        'role' => 'admin',
-    ]);
+        $this->actingAs($user = User::factory()->withPersonalTeam()->create());
 
-    $response = $this->delete('/team-invitations/'.$invitation->id);
+        $invitation = $user->currentTeam->teamInvitations()->create([
+            'email' => 'test@example.com',
+            'role' => 'admin',
+        ]);
 
-    expect($user->currentTeam->fresh()->teamInvitations)->toHaveCount(0);
-});
+        $response = $this->delete('/team-invitations/'.$invitation->id);
+
+        $this->assertCount(0, $user->currentTeam->fresh()->teamInvitations);
+    }
+}

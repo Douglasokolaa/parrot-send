@@ -1,5 +1,11 @@
-<?php
+<?php /** @noinspection ReturnTypeCanBeDeclaredInspection */
 
-test('view home Page', function () {
-    $this->get(route('home'))->assertOk()->assertSee('Welcome');
-});
+use Tests\TestCase;
+
+class PublicPagesTest extends TestCase
+{
+    public function testCanViewHomePage()
+    {
+        $this->get(route('home'))->assertSuccessful()->assertSee('Welcome');
+    }
+}
