@@ -1,6 +1,6 @@
 <?php
 
-use App\Enums\PhoneBookStatus;
+use App\Enums\PhonebookStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -18,7 +18,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('team_id');
             $table->string('name');
-            $table->tinyInteger('status')->default(PhoneBookStatus::Active->value);
+            $table->tinyInteger('status')->default(PhonebookStatus::Active->value);
             $table->timestamps();
         });
     }

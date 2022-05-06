@@ -2,13 +2,13 @@
 
 namespace App\Enums;
 
-enum PhoneBookStatus: int
+enum PhonebookStatus: int
 {
     case Inactive = 0;
     case Active = 1;
 
 
-    public static function asValidationArray()
+    public static function asValidationArray(): array
     {
         return [0, 1];
     }

@@ -56,6 +56,12 @@ return [
             'throw' => false,
         ],
 
+        'test' => [
+            'driver' => 'local',
+            'root' => public_path('test'),
+            'throw' => false,
+        ],
+
     ],
 
     /*

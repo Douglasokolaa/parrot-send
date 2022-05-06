@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Enums\PhoneBookStatus;
+use App\Enums\PhonebookStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -18,7 +18,7 @@ class Phonebook extends Model
     ];
 
     protected $casts = [
-        'status' => PhoneBookStatus::class
+        'status' => PhonebookStatus::class
     ];
 
     public function team(): BelongsTo

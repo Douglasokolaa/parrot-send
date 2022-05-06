@@ -232,7 +232,7 @@ namespace App\Models {
      * @property int $id
      * @property int $team_id
      * @property string $name
-     * @property \App\Enums\PhoneBookStatus $status
+     * @property \App\Enums\PhonebookStatus $status
      * @property \Illuminate\Support\Carbon|null $created_at
      * @property \Illuminate\Support\Carbon|null $updated_at
      * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Contact[] $contacts

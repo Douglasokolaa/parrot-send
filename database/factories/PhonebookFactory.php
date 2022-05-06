@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Enums\PhoneBookStatus;
+use App\Enums\PhonebookStatus;
 use App\Models\Team;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -16,11 +16,11 @@ class PhonebookFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition()
+    public function definition(): array
     {
         return [
             'name' => $this->faker->word,
-            'status' => $this->faker->randomElement(PhoneBookStatus::asValidationArray()),
+            'status' => $this->faker->randomElement(PhonebookStatus::asValidationArray()),
             'team_id' => Team::factory()->create()->id
         ];
     }

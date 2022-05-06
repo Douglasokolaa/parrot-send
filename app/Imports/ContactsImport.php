@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\Contact;
+use App\Models\Phonebook;
 use App\Models\Team;
 use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Concerns\Importable;
@@ -18,10 +19,10 @@ class ContactsImport implements ToModel, WithHeadingRow, WithBatchInserts, WithC
 {
     use Importable, SkipsFailures;
 
-    private string|int|null $phonebook;
+    private Phonebook $phonebook;
     private Team $team_id;
 
-    public function __construct(Team $team_id, string|int $phonebook = null)
+    public function __construct(Team $team_id, Phonebook $phonebook)
     {
         $this->team_id = $team_id;
         $this->phonebook = $phonebook;
@@ -49,7 +50,7 @@ class ContactsImport implements ToModel, WithHeadingRow, WithBatchInserts, WithC
             'country'        => $row['country'],
             'region'         => $row['region'],
             'team_id'        => $this->team_id->id,
-            'phonebook_id'   => $this->phonebook,
+            'phonebook_id'   => $this->phonebook->id,
         ]);
     }
 
