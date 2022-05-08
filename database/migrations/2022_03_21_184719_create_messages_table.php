@@ -24,11 +24,11 @@ return new class extends Migration {
             $table->string('phone_e164');
             $table->tinyInteger('status')->default(MessageStatus::scheduled->value);
             $table->dateTime('scheduled_at');
-            $table->tinyInteger('pages')->nullable();
+            $table->tinyInteger('pages')->default(0);
             $table->dateTime('sent_at')->nullable();
-            $table->json('response')->nullable();
             $table->string('cost')->nullable();
-            $table->string('channel_id')->nullable();
+            $table->string('route');
+            $table->string('provider');
             $table->timestamps();
         });
     }

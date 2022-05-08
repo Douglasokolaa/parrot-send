@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Enums\MessageStatus;
+use App\Enums\MessageRoute;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -22,7 +24,6 @@ class Message extends Model
         'contact_id',
         'team_id',
         'cost',
-        'response',
         'pages',
         'sent_at',
     ];
@@ -30,7 +31,13 @@ class Message extends Model
     protected $casts = [
         'scheduled_at' => 'datetime',
         'sent_at'      => 'immutable_datetime',
-        'status'       => MessageStatus::class
+        'status'       => MessageStatus::class,
+        'route'        => MessageRoute::class,
+    ];
+
+    protected $attributes = [
+        'route'    => MessageRoute::generic,
+        'provider' => 'termii'
     ];
 
     public function sender(): BelongsTo
@@ -41,5 +48,10 @@ class Message extends Model
     public function team(): BelongsTo
     {
         return $this->belongsTo(Team::class);
+    }
+
+    public function sent_by(): Attribute
+    {
+        return Attribute::set(static fn($value) => $value ?? auth()->id());
     }
 }

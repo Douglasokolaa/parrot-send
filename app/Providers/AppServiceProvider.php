@@ -27,6 +27,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $this->app->singleton(SmsProvider::class, Termii::class);
+        $this->app->scoped(SmsProvider::class, Termii::class);
     }
 }

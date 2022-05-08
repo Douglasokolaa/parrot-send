@@ -37,58 +37,56 @@ class Delimited implements Rule
         $this->customErrorMessages = $customErrorMessages;
     }
 
-    public function min(int $minimum)
+    public function min(int $minimum): static
     {
         $this->minimum = $minimum;
 
         return $this;
     }
 
-    public function max(int $maximum)
+    public function max(int $maximum): static
     {
         $this->maximum = $maximum;
 
         return $this;
     }
 
-    public function allowDuplicates(bool $allowed = true)
+    public function allowDuplicates(bool $allowed = true): static
     {
         $this->allowDuplicates = $allowed;
 
         return $this;
     }
 
-    public function separatedBy(string $separator)
+    public function separatedBy(string $separator): static
     {
         $this->separatedBy = $separator;
 
         return $this;
     }
 
-    public function doNotTrimItems()
+    public function doNotTrimItems(): bool
     {
         $this->trimItems = false;
 
         return true;
     }
 
-    public function validationMessageWord(string $word)
+    public function validationMessageWord(string $word): static
     {
         $this->validationMessageWord = $word;
 
         return $this;
     }
 
-    public function passes($attribute, $value)
+    public function passes($attribute, $value): bool
     {
         if ($this->trimItems) {
             $value = trim($value);
         }
 
         $items = collect(explode($this->separatedBy, $value))
-            ->filter(function ($item) {
-                return strlen((string) $item) > 0;
-            });
+            ->filter(fn($item) => (string) $item !== '');
 
         if (!is_null($this->minimum)) {
             if ($items->count() < $this->minimum) {
@@ -115,9 +113,7 @@ class Delimited implements Rule
         }
 
         if ($this->trimItems) {
-            $items = $items->map(function (string $item) {
-                return trim($item);
-            });
+            $items = $items->map(fn(string $item) => trim($item));
         }
 
         foreach ($items as $item) {
@@ -141,7 +137,7 @@ class Delimited implements Rule
         return true;
     }
 
-    protected function getErrorMessage($attribute, $rule, $data = [])
+    protected function getErrorMessage($attribute, $rule, $data = []): array|string|\Illuminate\Contracts\Translation\Translator|\Illuminate\Contracts\Foundation\Application|null
     {
         if (array_key_exists($attribute . '.' . $rule, $this->customErrorMessages)) {
             return __($this->customErrorMessages[$attribute . '.' . $rule], $data);
@@ -166,7 +162,7 @@ class Delimited implements Rule
         ];
     }
 
-    public function message()
+    public function message(): array|string
     {
         return $this->message;
     }
