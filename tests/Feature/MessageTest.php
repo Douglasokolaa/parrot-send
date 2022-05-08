@@ -27,7 +27,6 @@ class MessageTest extends TestCase
 
         $user = User::factory()->withPersonalTeam()->create();
         $sender = Sender::factory()->create(['team_id' => $user->currentTeam->id]);
-
         $sendAt = now()->toDateTimeString();
         Carbon::setTestNow($sendAt);
 

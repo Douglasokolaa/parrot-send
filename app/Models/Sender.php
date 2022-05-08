@@ -19,6 +19,10 @@ class Sender extends Model
         'enabled' => 'boolean'
     ];
 
+    protected $attributes = [
+        'enabled' => false,
+    ];
+
     public function team(): BelongsTo
     {
         return $this->belongsTo(Team::class);

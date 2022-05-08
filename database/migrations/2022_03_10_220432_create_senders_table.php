@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('senders', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->boolean('enabled')->default(true);
+            $table->boolean('enabled');
             $table->foreignId('team_id');
             $table->timestamps();
         });
