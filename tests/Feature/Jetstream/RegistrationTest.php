@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\jetstream;
+namespace Tests\Feature\Jetstream;
 
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Testing\RefreshDatabase;

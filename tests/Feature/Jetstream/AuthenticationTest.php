@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\jetstream;
+namespace Tests\Feature\Jetstream;
 
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
