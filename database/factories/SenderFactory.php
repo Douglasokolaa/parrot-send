@@ -18,7 +18,7 @@ class SenderFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->word,
+            'name' => $this->faker->userName,
             'enabled' => $this->faker->boolean,
             'team_id' => fn() => Team::factory()->create()->id
         ];

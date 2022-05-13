@@ -1,0 +1,751 @@
+{
+  "cypress.factory": {
+    "name": "cypress.factory",
+    "domain": null,
+    "action": "Laracasts\\Cypress\\Controllers\\CypressController@factory",
+    "uri": "__cypress__/factory",
+    "method": [
+      "POST"
+    ]
+  },
+  "cypress.login": {
+    "name": "cypress.login",
+    "domain": null,
+    "action": "Laracasts\\Cypress\\Controllers\\CypressController@login",
+    "uri": "__cypress__/login",
+    "method": [
+      "POST"
+    ]
+  },
+  "cypress.logout": {
+    "name": "cypress.logout",
+    "domain": null,
+    "action": "Laracasts\\Cypress\\Controllers\\CypressController@logout",
+    "uri": "__cypress__/logout",
+    "method": [
+      "POST"
+    ]
+  },
+  "cypress.artisan": {
+    "name": "cypress.artisan",
+    "domain": null,
+    "action": "Laracasts\\Cypress\\Controllers\\CypressController@artisan",
+    "uri": "__cypress__/artisan",
+    "method": [
+      "POST"
+    ]
+  },
+  "cypress.run-php": {
+    "name": "cypress.run-php",
+    "domain": null,
+    "action": "Laracasts\\Cypress\\Controllers\\CypressController@runPhp",
+    "uri": "__cypress__/run-php",
+    "method": [
+      "POST"
+    ]
+  },
+  "cypress.csrf-token": {
+    "name": "cypress.csrf-token",
+    "domain": null,
+    "action": "Laracasts\\Cypress\\Controllers\\CypressController@csrfToken",
+    "uri": "__cypress__/csrf_token",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "cypress.routes": {
+    "name": "cypress.routes",
+    "domain": null,
+    "action": "Laracasts\\Cypress\\Controllers\\CypressController@routes",
+    "uri": "__cypress__/routes",
+    "method": [
+      "POST"
+    ]
+  },
+  "cypress.current-user": {
+    "name": "cypress.current-user",
+    "domain": null,
+    "action": "Laracasts\\Cypress\\Controllers\\CypressController@currentUser",
+    "uri": "__cypress__/current-user",
+    "method": [
+      "POST"
+    ]
+  },
+  "login": {
+    "name": "login",
+    "domain": null,
+    "action": "Laravel\\Fortify\\Http\\Controllers\\AuthenticatedSessionController@create",
+    "uri": "login",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "": {
+    "name": null,
+    "domain": null,
+    "action": "Closure",
+    "uri": "api/user",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "logout": {
+    "name": "logout",
+    "domain": null,
+    "action": "Laravel\\Fortify\\Http\\Controllers\\AuthenticatedSessionController@destroy",
+    "uri": "logout",
+    "method": [
+      "POST"
+    ]
+  },
+  "password.request": {
+    "name": "password.request",
+    "domain": null,
+    "action": "Laravel\\Fortify\\Http\\Controllers\\PasswordResetLinkController@create",
+    "uri": "forgot-password",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "password.reset": {
+    "name": "password.reset",
+    "domain": null,
+    "action": "Laravel\\Fortify\\Http\\Controllers\\NewPasswordController@create",
+    "uri": "reset-password/{token}",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "password.email": {
+    "name": "password.email",
+    "domain": null,
+    "action": "Laravel\\Fortify\\Http\\Controllers\\PasswordResetLinkController@store",
+    "uri": "forgot-password",
+    "method": [
+      "POST"
+    ]
+  },
+  "password.update": {
+    "name": "password.update",
+    "domain": null,
+    "action": "Laravel\\Fortify\\Http\\Controllers\\NewPasswordController@store",
+    "uri": "reset-password",
+    "method": [
+      "POST"
+    ]
+  },
+  "register": {
+    "name": "register",
+    "domain": null,
+    "action": "Laravel\\Fortify\\Http\\Controllers\\RegisteredUserController@create",
+    "uri": "register",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "verification.notice": {
+    "name": "verification.notice",
+    "domain": null,
+    "action": "Laravel\\Fortify\\Http\\Controllers\\EmailVerificationPromptController@__invoke",
+    "uri": "email/verify",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "verification.verify": {
+    "name": "verification.verify",
+    "domain": null,
+    "action": "Laravel\\Fortify\\Http\\Controllers\\VerifyEmailController@__invoke",
+    "uri": "email/verify/{id}/{hash}",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "verification.send": {
+    "name": "verification.send",
+    "domain": null,
+    "action": "Laravel\\Fortify\\Http\\Controllers\\EmailVerificationNotificationController@store",
+    "uri": "email/verification-notification",
+    "method": [
+      "POST"
+    ]
+  },
+  "user-profile-information.update": {
+    "name": "user-profile-information.update",
+    "domain": null,
+    "action": "Laravel\\Fortify\\Http\\Controllers\\ProfileInformationController@update",
+    "uri": "user/profile-information",
+    "method": [
+      "PUT"
+    ]
+  },
+  "user-password.update": {
+    "name": "user-password.update",
+    "domain": null,
+    "action": "Laravel\\Fortify\\Http\\Controllers\\PasswordController@update",
+    "uri": "user/password",
+    "method": [
+      "PUT"
+    ]
+  },
+  "password.confirmation": {
+    "name": "password.confirmation",
+    "domain": null,
+    "action": "Laravel\\Fortify\\Http\\Controllers\\ConfirmedPasswordStatusController@show",
+    "uri": "user/confirmed-password-status",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "password.confirm": {
+    "name": "password.confirm",
+    "domain": null,
+    "action": "Laravel\\Fortify\\Http\\Controllers\\ConfirmablePasswordController@store",
+    "uri": "user/confirm-password",
+    "method": [
+      "POST"
+    ]
+  },
+  "two-factor.login": {
+    "name": "two-factor.login",
+    "domain": null,
+    "action": "Laravel\\Fortify\\Http\\Controllers\\TwoFactorAuthenticatedSessionController@create",
+    "uri": "two-factor-challenge",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "two-factor.enable": {
+    "name": "two-factor.enable",
+    "domain": null,
+    "action": "Laravel\\Fortify\\Http\\Controllers\\TwoFactorAuthenticationController@store",
+    "uri": "user/two-factor-authentication",
+    "method": [
+      "POST"
+    ]
+  },
+  "two-factor.confirm": {
+    "name": "two-factor.confirm",
+    "domain": null,
+    "action": "Laravel\\Fortify\\Http\\Controllers\\ConfirmedTwoFactorAuthenticationController@store",
+    "uri": "user/confirmed-two-factor-authentication",
+    "method": [
+      "POST"
+    ]
+  },
+  "two-factor.disable": {
+    "name": "two-factor.disable",
+    "domain": null,
+    "action": "Laravel\\Fortify\\Http\\Controllers\\TwoFactorAuthenticationController@destroy",
+    "uri": "user/two-factor-authentication",
+    "method": [
+      "DELETE"
+    ]
+  },
+  "two-factor.qr-code": {
+    "name": "two-factor.qr-code",
+    "domain": null,
+    "action": "Laravel\\Fortify\\Http\\Controllers\\TwoFactorQrCodeController@show",
+    "uri": "user/two-factor-qr-code",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "two-factor.secret-key": {
+    "name": "two-factor.secret-key",
+    "domain": null,
+    "action": "Laravel\\Fortify\\Http\\Controllers\\TwoFactorSecretKeyController@show",
+    "uri": "user/two-factor-secret-key",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "two-factor.recovery-codes": {
+    "name": "two-factor.recovery-codes",
+    "domain": null,
+    "action": "Laravel\\Fortify\\Http\\Controllers\\RecoveryCodeController@index",
+    "uri": "user/two-factor-recovery-codes",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "terms.show": {
+    "name": "terms.show",
+    "domain": null,
+    "action": "Laravel\\Jetstream\\Http\\Controllers\\Inertia\\TermsOfServiceController@show",
+    "uri": "terms-of-service",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "policy.show": {
+    "name": "policy.show",
+    "domain": null,
+    "action": "Laravel\\Jetstream\\Http\\Controllers\\Inertia\\PrivacyPolicyController@show",
+    "uri": "privacy-policy",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "profile.show": {
+    "name": "profile.show",
+    "domain": null,
+    "action": "Laravel\\Jetstream\\Http\\Controllers\\Inertia\\UserProfileController@show",
+    "uri": "user/profile",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "other-browser-sessions.destroy": {
+    "name": "other-browser-sessions.destroy",
+    "domain": null,
+    "action": "Laravel\\Jetstream\\Http\\Controllers\\Inertia\\OtherBrowserSessionsController@destroy",
+    "uri": "user/other-browser-sessions",
+    "method": [
+      "DELETE"
+    ]
+  },
+  "current-user-photo.destroy": {
+    "name": "current-user-photo.destroy",
+    "domain": null,
+    "action": "Laravel\\Jetstream\\Http\\Controllers\\Inertia\\ProfilePhotoController@destroy",
+    "uri": "user/profile-photo",
+    "method": [
+      "DELETE"
+    ]
+  },
+  "current-user.destroy": {
+    "name": "current-user.destroy",
+    "domain": null,
+    "action": "Laravel\\Jetstream\\Http\\Controllers\\Inertia\\CurrentUserController@destroy",
+    "uri": "user",
+    "method": [
+      "DELETE"
+    ]
+  },
+  "api-tokens.index": {
+    "name": "api-tokens.index",
+    "domain": null,
+    "action": "Laravel\\Jetstream\\Http\\Controllers\\Inertia\\ApiTokenController@index",
+    "uri": "user/api-tokens",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "api-tokens.store": {
+    "name": "api-tokens.store",
+    "domain": null,
+    "action": "Laravel\\Jetstream\\Http\\Controllers\\Inertia\\ApiTokenController@store",
+    "uri": "user/api-tokens",
+    "method": [
+      "POST"
+    ]
+  },
+  "api-tokens.update": {
+    "name": "api-tokens.update",
+    "domain": null,
+    "action": "Laravel\\Jetstream\\Http\\Controllers\\Inertia\\ApiTokenController@update",
+    "uri": "user/api-tokens/{token}",
+    "method": [
+      "PUT"
+    ]
+  },
+  "api-tokens.destroy": {
+    "name": "api-tokens.destroy",
+    "domain": null,
+    "action": "Laravel\\Jetstream\\Http\\Controllers\\Inertia\\ApiTokenController@destroy",
+    "uri": "user/api-tokens/{token}",
+    "method": [
+      "DELETE"
+    ]
+  },
+  "teams.create": {
+    "name": "teams.create",
+    "domain": null,
+    "action": "Laravel\\Jetstream\\Http\\Controllers\\Inertia\\TeamController@create",
+    "uri": "teams/create",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "teams.store": {
+    "name": "teams.store",
+    "domain": null,
+    "action": "Laravel\\Jetstream\\Http\\Controllers\\Inertia\\TeamController@store",
+    "uri": "teams",
+    "method": [
+      "POST"
+    ]
+  },
+  "teams.show": {
+    "name": "teams.show",
+    "domain": null,
+    "action": "Laravel\\Jetstream\\Http\\Controllers\\Inertia\\TeamController@show",
+    "uri": "teams/{team}",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "teams.update": {
+    "name": "teams.update",
+    "domain": null,
+    "action": "Laravel\\Jetstream\\Http\\Controllers\\Inertia\\TeamController@update",
+    "uri": "teams/{team}",
+    "method": [
+      "PUT"
+    ]
+  },
+  "teams.destroy": {
+    "name": "teams.destroy",
+    "domain": null,
+    "action": "Laravel\\Jetstream\\Http\\Controllers\\Inertia\\TeamController@destroy",
+    "uri": "teams/{team}",
+    "method": [
+      "DELETE"
+    ]
+  },
+  "current-team.update": {
+    "name": "current-team.update",
+    "domain": null,
+    "action": "Laravel\\Jetstream\\Http\\Controllers\\CurrentTeamController@update",
+    "uri": "current-team",
+    "method": [
+      "PUT"
+    ]
+  },
+  "team-members.store": {
+    "name": "team-members.store",
+    "domain": null,
+    "action": "Laravel\\Jetstream\\Http\\Controllers\\Inertia\\TeamMemberController@store",
+    "uri": "teams/{team}/members",
+    "method": [
+      "POST"
+    ]
+  },
+  "team-members.update": {
+    "name": "team-members.update",
+    "domain": null,
+    "action": "Laravel\\Jetstream\\Http\\Controllers\\Inertia\\TeamMemberController@update",
+    "uri": "teams/{team}/members/{user}",
+    "method": [
+      "PUT"
+    ]
+  },
+  "team-members.destroy": {
+    "name": "team-members.destroy",
+    "domain": null,
+    "action": "Laravel\\Jetstream\\Http\\Controllers\\Inertia\\TeamMemberController@destroy",
+    "uri": "teams/{team}/members/{user}",
+    "method": [
+      "DELETE"
+    ]
+  },
+  "team-invitations.accept": {
+    "name": "team-invitations.accept",
+    "domain": null,
+    "action": "Laravel\\Jetstream\\Http\\Controllers\\TeamInvitationController@accept",
+    "uri": "team-invitations/{invitation}",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "team-invitations.destroy": {
+    "name": "team-invitations.destroy",
+    "domain": null,
+    "action": "Laravel\\Jetstream\\Http\\Controllers\\TeamInvitationController@destroy",
+    "uri": "team-invitations/{invitation}",
+    "method": [
+      "DELETE"
+    ]
+  },
+  "ignition.healthCheck": {
+    "name": "ignition.healthCheck",
+    "domain": null,
+    "action": "Spatie\\LaravelIgnition\\Http\\Controllers\\HealthCheckController",
+    "uri": "_ignition/health-check",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "ignition.executeSolution": {
+    "name": "ignition.executeSolution",
+    "domain": null,
+    "action": "Spatie\\LaravelIgnition\\Http\\Controllers\\ExecuteSolutionController",
+    "uri": "_ignition/execute-solution",
+    "method": [
+      "POST"
+    ]
+  },
+  "ignition.updateConfig": {
+    "name": "ignition.updateConfig",
+    "domain": null,
+    "action": "Spatie\\LaravelIgnition\\Http\\Controllers\\UpdateConfigController",
+    "uri": "_ignition/update-config",
+    "method": [
+      "POST"
+    ]
+  },
+  "home": {
+    "name": "home",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\HomeController@index",
+    "uri": "/",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "dashboard": {
+    "name": "dashboard",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\DashboardController",
+    "uri": "dashboard",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "phonebooks.index": {
+    "name": "phonebooks.index",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\PhonebookController@index",
+    "uri": "phonebooks",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "phonebooks.create": {
+    "name": "phonebooks.create",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\PhonebookController@create",
+    "uri": "phonebooks/create",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "phonebooks.store": {
+    "name": "phonebooks.store",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\PhonebookController@store",
+    "uri": "phonebooks",
+    "method": [
+      "POST"
+    ]
+  },
+  "phonebooks.show": {
+    "name": "phonebooks.show",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\PhonebookController@show",
+    "uri": "phonebooks/{phonebook}",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "phonebooks.edit": {
+    "name": "phonebooks.edit",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\PhonebookController@edit",
+    "uri": "phonebooks/{phonebook}/edit",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "phonebooks.update": {
+    "name": "phonebooks.update",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\PhonebookController@update",
+    "uri": "phonebooks/{phonebook}",
+    "method": [
+      "PUT",
+      "PATCH"
+    ]
+  },
+  "phonebooks.destroy": {
+    "name": "phonebooks.destroy",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\PhonebookController@destroy",
+    "uri": "phonebooks/{phonebook}",
+    "method": [
+      "DELETE"
+    ]
+  },
+  "phonebooks.contacts.index": {
+    "name": "phonebooks.contacts.index",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\PhonebookContactController@index",
+    "uri": "phonebooks/{phonebook}/contacts",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "phonebooks.contacts.create": {
+    "name": "phonebooks.contacts.create",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\PhonebookContactController@create",
+    "uri": "phonebooks/{phonebook}/contacts/create",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "phonebooks.contacts.store": {
+    "name": "phonebooks.contacts.store",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\PhonebookContactController@store",
+    "uri": "phonebooks/{phonebook}/contacts",
+    "method": [
+      "POST"
+    ]
+  },
+  "contacts.show": {
+    "name": "contacts.show",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\PhonebookContactController@show",
+    "uri": "contacts/{contact}",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "contacts.edit": {
+    "name": "contacts.edit",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\PhonebookContactController@edit",
+    "uri": "contacts/{contact}/edit",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "contacts.update": {
+    "name": "contacts.update",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\PhonebookContactController@update",
+    "uri": "contacts/{contact}",
+    "method": [
+      "PUT",
+      "PATCH"
+    ]
+  },
+  "contacts.destroy": {
+    "name": "contacts.destroy",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\PhonebookContactController@destroy",
+    "uri": "contacts/{contact}",
+    "method": [
+      "DELETE"
+    ]
+  },
+  "phonebooks.import": {
+    "name": "phonebooks.import",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\PhonebookImportController",
+    "uri": "phonebooks/{phonebook}/import",
+    "method": [
+      "POST"
+    ]
+  },
+  "messages.direct.store": {
+    "name": "messages.direct.store",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\DirectMessageController@store",
+    "uri": "messages/direct",
+    "method": [
+      "POST"
+    ]
+  },
+  "senders.index": {
+    "name": "senders.index",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\SenderController@index",
+    "uri": "senders",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "senders.create": {
+    "name": "senders.create",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\SenderController@create",
+    "uri": "senders/create",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "senders.store": {
+    "name": "senders.store",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\SenderController@store",
+    "uri": "senders",
+    "method": [
+      "POST"
+    ]
+  },
+  "senders.show": {
+    "name": "senders.show",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\SenderController@show",
+    "uri": "senders/{sender}",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "senders.edit": {
+    "name": "senders.edit",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\SenderController@edit",
+    "uri": "senders/{sender}/edit",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "senders.update": {
+    "name": "senders.update",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\SenderController@update",
+    "uri": "senders/{sender}",
+    "method": [
+      "PUT",
+      "PATCH"
+    ]
+  },
+  "senders.destroy": {
+    "name": "senders.destroy",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\SenderController@destroy",
+    "uri": "senders/{sender}",
+    "method": [
+      "DELETE"
+    ]
+  }
+}
