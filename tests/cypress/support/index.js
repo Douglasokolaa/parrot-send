@@ -26,6 +26,10 @@ before(() => {
     cy.refreshRoutes();
 });
 
+beforeEach(() => {
+    cy.refreshDatabase();
+})
+
 after(() => {
     cy.task('activateLocalEnvFile', {}, { log: false });
     cy.artisan('config:clear', {}, { log: false });

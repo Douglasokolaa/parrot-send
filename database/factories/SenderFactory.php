@@ -18,7 +18,7 @@ class SenderFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->userName,
+            'name' => str($this->faker->userName)->remove(['.','-','_'])->substr(0, 10)->toString(),
             'enabled' => $this->faker->boolean,
             'team_id' => fn() => Team::factory()->create()->id
         ];
