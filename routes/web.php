@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('switch-theme',[HomeController::class, 'theme'])->name('switch-theme');
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',])->group(function () {
