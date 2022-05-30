@@ -18,14 +18,14 @@ class RegistrationTest extends TestCase
             return $this->markTestSkipped('Registration support is not enabled.');
         }
 
-        $response = $this->get('/register');
+        $response = $this->get('/auth/register');
 
         $response->assertStatus(200);
     }
 
     public function test_registration_screen_cannot_be_rendered_if_support_is_disabled()
     {
-        $response = $this->get('/register');
+        $response = $this->get('/auth/register');
         if (Features::enabled(Features::registration())) {
             $response->assertOk();
             return;
@@ -40,7 +40,7 @@ class RegistrationTest extends TestCase
             return $this->markTestSkipped('Registration support is not enabled.');
         }
 
-        $response = $this->post('/register', [
+        $response = $this->post('/auth/register', [
             'name' => 'DashboardTest User',
             'email' => 'test@example.com',
             'password' => 'password',

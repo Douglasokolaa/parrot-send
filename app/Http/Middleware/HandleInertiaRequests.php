@@ -11,9 +11,12 @@ class HandleInertiaRequests extends Middleware
     /**
      * The root template that is loaded on the first page visit.
      *
-     * @var string
+     * @return  string
      */
-    protected $rootView = 'app';
+    public function rootView(Request $request): string
+    {
+        return $request->route()->getPrefix() === 'auth' ? 'auth' : 'app';
+    }
 
     /**
      * Determine the current asset version.
@@ -25,6 +28,7 @@ class HandleInertiaRequests extends Middleware
     {
         return parent::version($request);
     }
+
 
     /**
      * Define the props that are shared by default.
@@ -38,6 +42,10 @@ class HandleInertiaRequests extends Middleware
             'ziggy' => function () {
                 return (new Ziggy)->toArray();
             },
+            'app' => [
+                'name' => config('app.name'),
+            ]
         ]);
     }
+
 }

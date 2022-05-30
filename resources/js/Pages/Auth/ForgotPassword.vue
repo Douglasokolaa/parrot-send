@@ -1,11 +1,12 @@
 <script setup>
-import { Head, useForm } from '@inertiajs/inertia-vue3';
+import {Head, useForm} from '@inertiajs/inertia-vue3';
 import JetAuthenticationCard from '@/Jetstream/AuthenticationCard.vue';
 import JetAuthenticationCardLogo from '@/Jetstream/AuthenticationCardLogo.vue';
 import JetButton from '@/Jetstream/Button.vue';
 import JetInput from '@/Jetstream/Input.vue';
 import JetLabel from '@/Jetstream/Label.vue';
 import JetValidationErrors from '@/Jetstream/ValidationErrors.vue';
+import AuthLayout from "../../Layouts/AuthLayout";
 
 defineProps({
     status: String,
@@ -21,41 +22,51 @@ const submit = () => {
 </script>
 
 <template>
-    <Head title="Forgot Password" />
+    <Head title="Forgot Password"/>
+    <auth-layout>
+        <template #illustrationTitle>
+            <div class="intro-x text-white font-medium text-4xl leading-tight mt-10">
+                Forgot Password
+            </div>
+            <div class="-intro-x mt-5 text-lg text-white text-opacity-70 dark:text-slate-400">
+                Manage all your sms campaign in one place
+            </div>
+        </template>
+        <template #cardTitle>
+            <h2 class="intro-x font-bold text-2xl xl:text-3xl text-center xl:text-left">
+                Forgot Password?
+            </h2>
+            <div v-if="status" class="intro-x mt-2 text-center font-medium text-green-600">
+                {{ status }}
+            </div>
+            <div v-else class="intro-x mt-2 text-slate-400 text-center">
 
-    <JetAuthenticationCard>
-        <template #logo>
-            <JetAuthenticationCardLogo />
+                Forgot your password? No problem. Just let us know your email address and we will email you a password
+                reset link that will allow you to choose a new one.
+
+            </div>
         </template>
 
-        <div class="mb-4 text-sm text-gray-600">
-            Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.
-        </div>
-
-        <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
-            {{ status }}
-        </div>
-
-        <JetValidationErrors class="mb-4" />
-
         <form @submit.prevent="submit">
-            <div>
-                <JetLabel for="email" value="Email" />
-                <JetInput
+            <div class="intro-x mt-8">
+                <input
                     id="email"
+                    placeholder="Email"
                     v-model="form.email"
                     type="email"
-                    class="mt-1 block w-full"
+                    class="intro-x login__input form-control py-3 px-4 block"
                     required
                     autofocus
-                />
+                    data-cy="email"
+                >
             </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <JetButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+            <div class="intro-x mt-5 xl:mt-8 text-center xl:text-left">
+                <button
+                    :class="{ 'opacity-25': form.processing }" :disabled="form.processing"
+                    class="btn btn-primary py-3 px-4 w-full xl:w-32 xl:mr-3 align-top">
                     Email Password Reset Link
-                </JetButton>
+                </button>
             </div>
         </form>
-    </JetAuthenticationCard>
+    </auth-layout>
 </template>

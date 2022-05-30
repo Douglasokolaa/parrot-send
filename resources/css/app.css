@@ -2,7 +2,3 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-n-primary {
-    @apply border-0 p-1 bg-green-600 font-bold hover:bg-green-900;
-    background-color: transparent;
-}

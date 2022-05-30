@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Cookie;
+use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Illuminate\Foundation\Application;
 use Inertia\Response;
@@ -17,5 +19,10 @@ class HomeController extends Controller
             'laravelVersion' => Application::VERSION,
             'phpVersion'     => PHP_VERSION,
         ]);
+    }
+
+    public function theme(): RedirectResponse
+    {
+        return back()->cookie('theme', Cookie::get('theme') === 'dark' ? 'light' : 'dark');
     }
 }

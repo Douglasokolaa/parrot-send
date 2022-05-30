@@ -14,7 +14,7 @@ class ProfileInformationTest extends TestCase
     {
         $this->actingAs($user = User::factory()->create());
 
-        $response = $this->put('/user/profile-information', [
+        $response = $this->put('/auth/user/profile-information', [
             'name' => 'DashboardTest Name',
             'email' => 'test@example.com',
         ]);
