@@ -21,6 +21,7 @@ class HomeController extends Controller
         ]);
     }
 
+    
     public function theme(): RedirectResponse
     {
         return back()->cookie('theme', Cookie::get('theme') === 'dark' ? 'light' : 'dark');
