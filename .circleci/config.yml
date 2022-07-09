@@ -107,6 +107,7 @@ workflows:
       - analyze:
           requires:
             - test
-  deploy:
-    jobs:
       - create_infrastructure
+          requires:
+            - analyze
+     
