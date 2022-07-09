@@ -107,7 +107,7 @@ workflows:
       - analyze:
           requires:
             - test
-      - create_infrastructure:
-          requires:
-            - analyze
+      # - create_infrastructure:
+      #     requires:
+      #       - analyze
      
