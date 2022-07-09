@@ -61,6 +61,9 @@ jobs:
              php -r "file_exists('.env') || copy('.env.example', '.env');"
              php artisan key:generate
              chmod -R 777 storage bootstrap/cache
+      - run: 
+          name: Install node packages
+          command: yarn install
       - run:
           name: build frontend
           command: npm run dev
@@ -75,6 +78,9 @@ jobs:
           keys:
             - node-v1-{{ checksum "package-lock.json" }}
             - node-v1-
+      - run: 
+          name: Install node packages
+          command: yarn install
       - run: npm audit
 
 workflows:
