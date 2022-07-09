@@ -64,7 +64,7 @@ jobs:
       - run:
           name: build frontend
           command: npm run dev
-      - run: ./vendor/bin/phpunit
+      - run: php artisan test
 
   analyze:
     docker:
