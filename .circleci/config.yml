@@ -1,0 +1,89 @@
+version: 2.1
+jobs:
+  build:
+    docker:
+      - image: cimg/php:8.1-browsers
+      # - image: cimg/mysql:5.7
+      # - image: redis:2.8.19
+    steps:
+      - checkout
+      - run: sudo apt update # PHP CircleCI 2.0 Configuration File# PHP CircleCI 2.0 Configuration File sudo apt install zlib1g-dev libsqlite3-dev
+      - run: sudo docker-php-ext-install zip
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "composer.lock" }}
+            - v1-dependencies-
+
+      - run: 
+          name: Install Composer packages
+          command: composer install -n --prefer-dist
+
+      - save_cache:
+          key: v1-dependencies-{{ checksum "composer.lock" }}
+          paths:
+            - ./vendor
+    
+      - restore_cache:
+          keys:
+            - node-v1-{{ checksum "package-lock.json" }}
+            - node-v1-
+    
+      - run: 
+          name: Install node packages
+          command: yarn install
+      - save_cache:
+          key: node-v1-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
+
+  test:
+    docker:
+      - image: cimg/php:8.1-browsers
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "composer.lock" }}
+            - v1-dependencies-
+      - restore_cache:
+          keys:
+            - node-v1-{{ checksum "package-lock.json" }}
+            - node-v1-
+      - run: 
+          name: prepare the database
+          command: touch storage/testing.sqlite
+      # - run: php artisan migrate --env=testing --database=sqlite_testing --force
+      - run: 
+          name: Configure Backend
+          command: |
+             php -r "file_exists('.env') || copy('.env.example', '.env');"
+             php artisan key:generate
+             chmod -R 777 storage bootstrap/cache
+      - run:
+          name: build frontend
+          command: npm run dev
+      - run: ./vendor/bin/phpunit
+
+  analyze:
+    docker:
+      - image: cimg/php:8.1-browsers
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - node-v1-{{ checksum "package-lock.json" }}
+            - node-v1-
+      - run: npm audit
+
+workflows:
+  backend:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - analyze:
+          requires:
+            - test
