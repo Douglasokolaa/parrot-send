@@ -3,7 +3,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: cimg/8.1.5-browsers
+      - image: cimg/8.1-browsers
       # - image: cimg/mysql:5.7
       # - image: redis:2.8.19
 
