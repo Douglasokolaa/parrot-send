@@ -8,6 +8,7 @@ import JetDropdown from '@/Jetstream/Dropdown.vue';
 import JetDropdownLink from '@/Jetstream/DropdownLink.vue';
 import JetNavLink from '@/Jetstream/NavLink.vue';
 import JetResponsiveNavLink from '@/Jetstream/ResponsiveNavLink.vue';
+import DarkModeSwitcher from "@/Components/dark-mode-switcher/Main.vue";
 
 defineProps({
     title: String,
@@ -30,8 +31,8 @@ const logout = () => {
 
 <template>
     <div>
-        <Head :title="title" />
-
+      <DarkModeSwitcher />
+        <Head title="title" />
         <JetBanner />
 
         <div class="min-h-screen bg-gray-100">

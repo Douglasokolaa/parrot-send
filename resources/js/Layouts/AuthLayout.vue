@@ -2,6 +2,7 @@
 import JetApplicationMark from '@/Jetstream/ApplicationMark.vue';
 import 'mosha-vue-toastify/dist/style.css';
 import JetValidationErrors from '@/Jetstream/ValidationErrors.vue';
+import DarkModeSwitcher from "@/Components/dark-mode-switcher/Main.vue";
 
 defineProps({
     title: String,
@@ -10,6 +11,7 @@ defineProps({
 
 <template>
     <div>
+      <DarkModeSwitcher />
         <div class="container sm:px-10">
             <div class="block xl:grid grid-cols-2 gap-4">
                 <div class="hidden xl:flex flex-col min-h-screen">
