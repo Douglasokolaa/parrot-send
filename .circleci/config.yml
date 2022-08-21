@@ -21,7 +21,7 @@ jobs:
             - v1-dependencies-{{ checksum "composer.lock" }}
             - v1-dependencies-
 
-      - run: 
+      - run:
           name: Install Composer packages
           command: composer install -n --prefer-dist
 
@@ -29,13 +29,13 @@ jobs:
           key: v1-dependencies-{{ checksum "composer.lock" }}
           paths:
             - ./vendor
-    
+
       - restore_cache:
           keys:
             - node-v1-{{ checksum "package-lock.json" }}
             - node-v1-
-    
-      - run: 
+
+      - run:
           name: Install node packages
           command: yarn install
       - save_cache:
@@ -56,11 +56,11 @@ jobs:
           keys:
             - node-v1-{{ checksum "package-lock.json" }}
             - node-v1-
-      - run: 
+      - run:
           name: prepare the database
           command: touch storage/testing.sqlite
       # - run: php artisan migrate --env=testing --database=sqlite_testing --force
-      - run: 
+      - run:
           name: Configure Backend
           command: |
              php -r "file_exists('.env') || copy('.env.example', '.env');"
@@ -107,7 +107,6 @@ workflows:
       - analyze:
           requires:
             - test
-      - create_infrastructure
-          requires:
-            - analyze
-     
+#      - create_infrastructure:
+#          requires:
+#            - analyze
