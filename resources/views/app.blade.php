@@ -8,12 +8,11 @@
 
 
     <!-- Styles -->
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    @vite(['resources/js/app.js'])
     <link rel="stylesheet" href="{{ asset("dist/css/app.css") }}" />
 
     <!-- Scripts -->
     @routes
-    <script src="{{ mix('js/app.js') }}" defer></script>
     <script src="{{ asset("dist/js/app.js") }}" defer></script>
     @inertiaHead
 </head>

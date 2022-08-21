@@ -1,6 +1,6 @@
 <script setup>
 import {Head, Link, useForm} from '@inertiajs/inertia-vue3';
-import AuthLayout from "../../Layouts/AuthLayout";
+import AuthLayout from "../../Layouts/AuthLayout.vue";
 
 defineProps({
     canResetPassword: Boolean,

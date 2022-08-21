@@ -6,7 +6,7 @@ import JetButton from '@/Jetstream/Button.vue';
 import JetInput from '@/Jetstream/Input.vue';
 import JetLabel from '@/Jetstream/Label.vue';
 import JetValidationErrors from '@/Jetstream/ValidationErrors.vue';
-import AuthLayout from "../../Layouts/AuthLayout";
+import AuthLayout from "../../Layouts/AuthLayout.vue";
 
 defineProps({
     status: String,

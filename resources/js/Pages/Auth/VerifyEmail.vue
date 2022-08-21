@@ -1,7 +1,7 @@
 <script setup>
 import {computed} from 'vue';
 import {Head, Link, useForm} from '@inertiajs/inertia-vue3';
-import AuthLayout from "../../Layouts/AuthLayout";
+import AuthLayout from "../../Layouts/AuthLayout.vue";
 
 const props = defineProps({
     status: String,
