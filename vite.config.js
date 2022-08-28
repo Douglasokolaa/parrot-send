@@ -24,4 +24,7 @@ export default defineConfig({
             'ziggy-vue': '/vendor/tightenco/ziggy/src/js/vue',
         }
     },
+    options: {
+        __VUE_PROD_DEVTOOLS__: true,
+    }
 });

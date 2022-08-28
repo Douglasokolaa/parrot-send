@@ -5,13 +5,25 @@ export const useSideMenuStore = defineStore("sideMenu", {
     menu: [
       {
         icon: "HomeIcon",
-        pageName: "side-menu-page-1",
-        title: "Page 1",
+        title: "Dashboard",
+        routeName: "dashboard",
       },
       {
         icon: "HomeIcon",
-        pageName: "side-menu-page-2",
-        title: "Page 2",
+        routeName: "side-menu-dashboard",
+        title: "Dashboard",
+        subMenu: [
+          {
+            icon: "",
+            title: "Overview 1",
+            routeName: "side-menu-dashboard-overview-1",
+          },
+        ],
+      },
+      {
+        icon: "InboxIcon",
+        title: "Inbox",
+        routeName: "side-menu-inbox",
       },
     ],
   }),

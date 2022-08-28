@@ -1,10 +1,10 @@
 <script setup>
-import JetstreamAppLayout from '@/Layouts/JetstreamAppLayout.vue';
 import Welcome from '@/Jetstream/Welcome.vue';
+import AppLayout from "@/Layouts/AppLayout.vue";
 </script>
 
 <template>
-    <JetstreamAppLayout title="Dashboard">
+    <AppLayout title="Dashboard">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Dashboard
@@ -18,5 +18,5 @@ import Welcome from '@/Jetstream/Welcome.vue';
                 </div>
             </div>
         </div>
-    </JetstreamAppLayout>
+    </AppLayout>
 </template>
