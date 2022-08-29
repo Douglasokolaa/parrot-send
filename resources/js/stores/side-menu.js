@@ -9,6 +9,11 @@ export const useSideMenuStore = defineStore("sideMenu", {
         routeName: "dashboard",
       },
       {
+        icon: "PhoneIcon",
+        title: "Phonebook",
+        routeName: "phonebooks.index",
+      },
+      {
         icon: "HomeIcon",
         routeName: "current-team.update",
         title: "Nested Menu",

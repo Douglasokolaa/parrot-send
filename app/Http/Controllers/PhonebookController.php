@@ -4,12 +4,33 @@ namespace App\Http\Controllers;
 
 use App\Enums\PhonebookStatus;
 use App\Models\Phonebook;
+use App\Policies\TeamPolicy;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class PhonebookController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Phonebook::class);
+    }
+
+    public function index(Request $request): Response
+    {
+        return Inertia::render('Phonebook/Index', [
+            'canCreatePhonebook' => $request->user()->can('create', Phonebook::class),
+            'phonebooks'         => Phonebook::query()->paginate()->withQueryString(),
+        ]);
+    }
+
+    public function show(Phonebook $phonebook)
+    {
+//        Inertia::render('');
+    }
+
     public function store(Request $request): RedirectResponse
     {
         $data = $request->validate(['name' => 'required|min:3']);
