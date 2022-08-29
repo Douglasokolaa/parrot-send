@@ -1,8 +1,6 @@
 version: 2.1
 
-
 orbs:
-
 
 jobs:
   build:
@@ -78,6 +76,7 @@ jobs:
           keys:
             - node-v1-{{ checksum "package-lock.json" }}
             - node-v1-
+      - run: pwd
       - run: npm audit
 
 
