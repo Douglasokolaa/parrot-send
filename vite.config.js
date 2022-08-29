@@ -26,5 +26,8 @@ export default defineConfig({
     },
     options: {
         __VUE_PROD_DEVTOOLS__: true,
-    }
+    },
+    build: {
+        chunkSizeWarningLimit: 3000,
+    },
 });
