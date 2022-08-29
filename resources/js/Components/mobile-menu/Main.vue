@@ -11,7 +11,7 @@
         <img
           alt="Enigma Tailwind HTML Admin Template"
           class="w-6"
-          src="@/assets/images/logo.svg"
+          src="@/../images/logo.svg"
         />
       </a>
       <a href="javascript:;" class="mobile-menu-toggler">
@@ -37,14 +37,32 @@
             class="menu__devider my-6"
           ></li>
           <li v-else :key="menu + menuKey">
+              <Link
+                  v-if="!menu.subMenu"
+                  :href="menu.subMenu ? 'javascript:;' : route(menu.routeName)"
+                  class="menu"
+                  :class="{
+                  'side-menu--active': route().current(menu.routeName),
+                  'side-menu--open': menu.activeDropdown,
+                }"
+                  @click="toggleMobileMenu"
+              >
+              <div class="menu__icon">
+                <component :is="menu.icon" />
+              </div>
+              <div class="menu__title">
+                {{ menu.title }}
+              </div>
+            </Link>
             <a
-              href="javascript:;"
-              class="menu"
-              :class="{
-                'menu--active': menu.active,
-                'menu--open': menu.activeDropdown,
-              }"
-              @click="linkTo(menu, router)"
+                v-if="menu.subMenu"
+                href="javascript:;"
+                class="menu"
+                :class="{
+                  'side-menu--active': menu.active ,
+                  'side-menu--open': menu.activeDropdown,
+                }"
+                @click="menu.activeDropdown = true;"
             >
               <div class="menu__icon">
                 <component :is="menu.icon" />
@@ -52,9 +70,8 @@
               <div class="menu__title">
                 {{ menu.title }}
                 <div
-                  v-if="menu.subMenu"
-                  class="menu__sub-icon"
-                  :class="{ 'transform rotate-180': menu.activeDropdown }"
+                    class="menu__sub-icon"
+                    :class="{ 'transform rotate-180': menu.activeDropdown }"
                 >
                   <ChevronDownIcon />
                 </div>
@@ -67,11 +84,11 @@
                   v-for="(subMenu, subMenuKey) in menu.subMenu"
                   :key="subMenuKey"
                 >
-                  <a
-                    href="javascript:;"
+                  <Link
+                    :href="route(menu.routeName)"
                     class="menu"
-                    :class="{ 'menu--active': subMenu.active }"
-                    @click="linkTo(subMenu, router)"
+                    :class="{ 'menu--active': route().current(subMenu.routeName) }"
+                    @click="toggleMobileMenu"
                   >
                     <div class="menu__icon">
                       <ActivityIcon />
@@ -88,31 +105,7 @@
                         <ChevronDownIcon />
                       </div>
                     </div>
-                  </a>
-                  <!-- BEGIN: Third Child -->
-                  <transition @enter="enter" @leave="leave">
-                    <ul v-if="subMenu.subMenu && subMenu.activeDropdown">
-                      <li
-                        v-for="(lastSubMenu, lastSubMenuKey) in subMenu.subMenu"
-                        :key="lastSubMenuKey"
-                      >
-                        <a
-                          href="javascript:;"
-                          class="menu"
-                          :class="{ 'menu--active': lastSubMenu.active }"
-                          @click="linkTo(lastSubMenu, router)"
-                        >
-                          <div class="menu__icon">
-                            <ZapIcon />
-                          </div>
-                          <div class="menu__title">
-                            {{ lastSubMenu.title }}
-                          </div>
-                        </a>
-                      </li>
-                    </ul>
-                  </transition>
-                  <!-- END: Third Child -->
+                  </Link>
                 </li>
               </ul>
             </transition>
@@ -127,33 +120,23 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref, watch } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { computed, onMounted, ref } from "vue";
+import {Link} from '@inertiajs/inertia-vue3';
 import { helper as $h } from "@/utils/helper";
 import { useSideMenuStore } from "@/stores/side-menu";
 import {
   activeMobileMenu,
   toggleMobileMenu,
-  linkTo,
   enter,
   leave,
 } from "./index";
-import { nestedMenu } from "@/layouts/side-menu";
+import { nestedMenu } from "@/Layouts/appLayout";
 import dom from "@left4code/tw-starter/dist/js/dom";
 import SimpleBar from "simplebar";
 
-const route = useRoute();
-const router = useRouter();
 const formattedMenu = ref([]);
 const sideMenuStore = useSideMenuStore();
-const mobileMenu = computed(() => nestedMenu(sideMenuStore.menu, route));
-
-watch(
-  computed(() => route.path),
-  () => {
-    formattedMenu.value = $h.toRaw(mobileMenu.value);
-  }
-);
+const mobileMenu = computed(() => nestedMenu(sideMenuStore.menu));
 
 onMounted(() => {
   new SimpleBar(dom(".mobile-menu .scrollable")[0]);

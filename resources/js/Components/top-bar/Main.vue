@@ -1,14 +1,14 @@
 <script setup>
 import {ref} from "vue";
 import {Inertia} from "@inertiajs/inertia";
-import {Link} from '@inertiajs/inertia-vue3';
+import {Link, useRemember} from '@inertiajs/inertia-vue3';
 
 const logout = () => {
   Inertia.post(route('logout'));
 };
 
 
-const showingNavigationDropdown = ref(false);
+const showingNavigationDropdown = useRemember(ref(false));
 
 const switchToTeam = (team) => {
   Inertia.put(route('current-team.update'), {

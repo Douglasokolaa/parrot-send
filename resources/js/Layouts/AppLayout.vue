@@ -5,9 +5,10 @@ import {computed, onMounted, provide, ref, watch} from "vue";
 import {helper as $h} from "@/utils/helper";
 import {useSideMenuStore} from "@/stores/side-menu";
 import TopBar from "@/Components/top-bar/Main.vue";
-// import MobileMenu from "@/Components/mobile-menu/Main.vue";
+import MobileMenu from "@/Components/mobile-menu/Main.vue";
 import {nestedMenu} from "./appLayout";
 import dom from "@left4code/tw-starter/dist/js/dom";
+import route from "ziggy-js/src/js";
 
 const formattedMenu = ref([]);
 const sideMenuStore = useSideMenuStore();
@@ -32,9 +33,11 @@ onMounted(() => {
 
 <template>
   <div class="py-5 md:py-0">
-    <Head :title="title"/>
+    <div v-if="title">
+      <Head :title="title"/>
+    </div>
     <DarkModeSwitcher/>
-    <!--    <MobileMenu/>-->
+    <MobileMenu/>
     <TopBar/>
     <div class="flex overflow-hidden">
       <!-- BEGIN: Side Menu -->
@@ -53,7 +56,7 @@ onMounted(() => {
                   :href="menu.subMenu ? 'javascript:;' : route(menu.routeName)"
                   class="side-menu"
                   :class="{
-                  'side-menu--active': menu.active,
+                  'side-menu--active': route().current(menu.routeName),
                   'side-menu--open': menu.activeDropdown,
                 }"
               >
