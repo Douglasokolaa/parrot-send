@@ -1,37 +1,33 @@
 <script setup>
-import {Inertia} from '@inertiajs/inertia';
 import {Head, Link} from '@inertiajs/inertia-vue3';
-import Logo from '@/Jetstream/ApplicationMark.vue';
 import DarkModeSwitcher from "@/Components/dark-mode-switcher/Main.vue";
 import {computed, onMounted, provide, ref, watch} from "vue";
 import {helper as $h} from "@/utils/helper";
 import {useSideMenuStore} from "@/stores/side-menu";
 import TopBar from "@/Components/top-bar/Main.vue";
 // import MobileMenu from "@/Components/mobile-menu/Main.vue";
-import MainColorSwitcher from "@/Components/main-color-switcher/Main.vue";
-import SideMenuTooltip from "@/Components/side-menu-tooltip/Main.vue";
 import {nestedMenu} from "./appLayout";
 import dom from "@left4code/tw-starter/dist/js/dom";
 
 const formattedMenu = ref([]);
 const sideMenuStore = useSideMenuStore();
 const sideMenu = computed(() => nestedMenu(sideMenuStore.menu));
-
-provide("forceActiveMenu", (pageName) => {
-  route.forceActiveMenu = pageName;
-  formattedMenu.value = $h.toRaw(sideMenu.value);
-});
-
-onMounted(() => {
-  dom("body").removeClass("error-page").removeClass("login").addClass("main");
-});
+const showingNavigationDropdown = ref(false);
+const enter = (el, done) => {
+  dom(el).slideDown(300);
+};
+const leave = (el, done) => {
+  dom(el).slideUp(300);
+};
 
 defineProps({
   title: String,
 });
 
-const showingNavigationDropdown = ref(false);
-
+onMounted(() => {
+  dom("body").removeClass("error-page").removeClass("login").addClass("main");
+  formattedMenu.value = $h.toRaw(sideMenu.value);
+});
 </script>
 
 <template>
@@ -52,10 +48,9 @@ const showingNavigationDropdown = ref(false);
                 class="side-nav__devider my-6"
             ></li>
             <li v-else :key="menu + menuKey">
-              <SideMenuTooltip
-                  tag="a"
-                  :content="menu.title"
-                  :href="route(menu.routeName)"
+              <Link
+                  v-if="!menu.subMenu"
+                  :href="menu.subMenu ? 'javascript:;' : route(menu.routeName)"
                   class="side-menu"
                   :class="{
                   'side-menu--active': menu.active,
@@ -67,15 +62,31 @@ const showingNavigationDropdown = ref(false);
                 </div>
                 <div class="side-menu__title">
                   {{ menu.title }}
+                </div>
+              </Link>
+              <a
+                  v-if="menu.subMenu"
+                  href="javascript:;"
+                  class="side-menu"
+                  :class="{
+                  'side-menu--active': menu.active,
+                  'side-menu--open': menu.activeDropdown,
+                }"
+                  @click="menu.activeDropdown = true;"
+              >
+                <div class="side-menu__icon">
+                  <component :is="menu.icon"/>
+                </div>
+                <div class="side-menu__title">
+                  {{ menu.title }}
                   <div
-                      v-if="menu.subMenu"
                       class="side-menu__sub-icon"
                       :class="{ 'transform rotate-180': menu.activeDropdown }"
                   >
                     <ChevronDownIcon/>
                   </div>
                 </div>
-              </SideMenuTooltip>
+              </a>
               <!-- BEGIN: Second Child -->
               <transition @enter="enter" @leave="leave">
                 <ul v-if="menu.subMenu && menu.activeDropdown">
@@ -83,17 +94,10 @@ const showingNavigationDropdown = ref(false);
                       v-for="(subMenu, subMenuKey) in menu.subMenu"
                       :key="subMenuKey"
                   >
-                    <SideMenuTooltip
-                        tag="a"
-                        :content="subMenu.title"
-                        :href="
-                        subMenu.subMenu
-                          ? 'javascript:;'
-                          : router.resolve({ name: subMenu.pageName }).path
-                      "
+                    <Link
+                        :href=" subMenu.subMenu ? 'javascript:;' : route(subMenu.routeName)"
                         class="side-menu"
                         :class="{ 'side-menu--active': subMenu.active }"
-                        @click="linkTo(subMenu, router, $event)"
                     >
                       <div class="side-menu__icon">
                         <ActivityIcon/>
@@ -110,42 +114,7 @@ const showingNavigationDropdown = ref(false);
                           <ChevronDownIcon/>
                         </div>
                       </div>
-                    </SideMenuTooltip>
-                    <!-- BEGIN: Third Child -->
-                    <transition @enter="enter" @leave="leave">
-                      <ul v-if="subMenu.subMenu && subMenu.activeDropdown">
-                        <li
-                            v-for="(
-                            lastSubMenu, lastSubMenuKey
-                          ) in subMenu.subMenu"
-                            :key="lastSubMenuKey"
-                        >
-                          <SideMenuTooltip
-                              tag="a"
-                              :content="lastSubMenu.title"
-                              :href="
-                              lastSubMenu.subMenu
-                                ? 'javascript:;'
-                                : router.resolve({
-                                    name: lastSubMenu.pageName,
-                                  }).path
-                            "
-                              class="side-menu"
-                              :class="{
-                              'side-menu--active': lastSubMenu.active,
-                            }"
-                              @click="linkTo(lastSubMenu, router, $event)"
-                          >
-                            <div class="side-menu__icon">
-                              <ZapIcon/>
-                            </div>
-                            <div class="side-menu__title">
-                              {{ lastSubMenu.title }}
-                            </div>
-                          </SideMenuTooltip>
-                        </li>
-                      </ul>
-                    </transition>
+                    </Link>
                     <!-- END: Third Child -->
                   </li>
                 </ul>

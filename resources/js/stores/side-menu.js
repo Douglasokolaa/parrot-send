@@ -10,20 +10,15 @@ export const useSideMenuStore = defineStore("sideMenu", {
       },
       {
         icon: "HomeIcon",
-        routeName: "side-menu-dashboard",
-        title: "Dashboard",
+        routeName: "current-team.update",
+        title: "Nested Menu",
         subMenu: [
           {
             icon: "",
             title: "Overview 1",
-            routeName: "side-menu-dashboard-overview-1",
+            routeName: "current-team.update",
           },
         ],
-      },
-      {
-        icon: "InboxIcon",
-        title: "Inbox",
-        routeName: "side-menu-inbox",
       },
     ],
   }),

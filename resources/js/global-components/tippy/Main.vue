@@ -59,7 +59,7 @@ const bindInstance = () => {
 };
 
 onMounted(() => {
-  init();
-  bindInstance();
+  // init();
+  // bindInstance();
 });
 </script>
