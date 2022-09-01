@@ -22,7 +22,7 @@ class PhonebookController extends Controller
     {
         return Inertia::render('Phonebook/Index', [
             'canCreatePhonebook' => $request->user()->can('create', Phonebook::class),
-            'phonebooks'         => Phonebook::query()->paginate()->withQueryString(),
+            'phonebooks'         => Phonebook::query()->withCount(['contacts',])->paginate()->withQueryString(),
         ]);
     }
 
@@ -45,12 +45,15 @@ class PhonebookController extends Controller
             'status' => ['required', Rule::in(PhonebookStatus::asValidationArray())],
         ]);
         $phonebook->update($data);
-        return redirect()->route('phonebooks.show', $phonebook->id)->with('success', 'Phonebook updated');
+        return redirect()->back();
     }
 
     public function destroy(Phonebook $phonebook): RedirectResponse
     {
-        $phonebook->delete();
+        \DB::transaction(function () use ($phonebook) {
+            $phonebook->contacts()->delete();
+            $phonebook->delete();
+        });
         return redirect()->route('phonebooks.index');
     }
 }

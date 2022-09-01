@@ -212,6 +212,7 @@ namespace App\Models{
  * @property int $id
  * @property int $team_id
  * @property string $name
+ * @property string $slug
  * @property \App\Enums\PhonebookStatus $status
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -225,6 +226,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Phonebook whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Phonebook whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Phonebook whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Phonebook whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Phonebook whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Phonebook whereTeamId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Phonebook whereUpdatedAt($value)
@@ -385,6 +387,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User whereTwoFactorSecret($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  */
-	class User extends \Eloquent {}
+	class User extends \Eloquent implements \Illuminate\Contracts\Auth\MustVerifyEmail {}
 }
 

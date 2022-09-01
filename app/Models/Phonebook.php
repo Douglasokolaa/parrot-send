@@ -17,6 +17,16 @@ class Phonebook extends Model
         'status'
     ];
 
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
+    protected static function booted()
+    {
+        self::creating(fn(self $phonebook) => $phonebook->slugIt());
+    }
+
     protected $casts = [
         'status' => PhonebookStatus::class
     ];
@@ -29,5 +39,10 @@ class Phonebook extends Model
     public function contacts(): HasMany
     {
         return $this->hasMany(Contact::class);
+    }
+
+    private function slugIt()
+    {
+        return str($this->name)->slug();
     }
 }

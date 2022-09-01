@@ -1,11 +1,13 @@
 <script>
 import {Head} from "@inertiajs/inertia-vue3";
 import CreatePhoneBook from "./Partial/CreatePhoneBook.vue";
+import PhonebookTable from "./Partial/PhonebookTable.vue";
 
 export default {
-  components: {CreatePhoneBook, Head},
+  components: {PhonebookTable, CreatePhoneBook, Head},
   props: {
     canCreatePhonebook: Boolean,
+    phonebooks: Object,
   },
   data() {
     return {
@@ -52,7 +54,9 @@ export default {
           </DropdownMenu>
         </Dropdown>
 
-        <!-- Modals -->
+      </div>
+      <div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
+        <phonebook-table :phonebooks="phonebooks"/>
       </div>
     </div>
     <CreatePhoneBook

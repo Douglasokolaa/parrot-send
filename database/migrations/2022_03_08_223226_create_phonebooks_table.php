@@ -18,6 +18,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('team_id');
             $table->string('name');
+            $table->string('slug');
             $table->tinyInteger('status')->default(PhonebookStatus::Active->value);
             $table->timestamps();
         });
