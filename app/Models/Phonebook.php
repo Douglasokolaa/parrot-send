@@ -41,8 +41,9 @@ class Phonebook extends Model
         return $this->hasMany(Contact::class);
     }
 
-    private function slugIt()
+    private function slugIt(): static
     {
-        return str($this->name)->slug();
+        $this->slug = str($this->name)->slug();
+        return $this;
     }
 }
