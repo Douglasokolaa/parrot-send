@@ -1,3 +1,10 @@
+<script>
+import BlankLayout from "../../Layouts/BlankLayout.vue";
+
+export default {
+  layout: BlankLayout
+}
+</script>
 <script setup>
 import {Head, useForm} from '@inertiajs/inertia-vue3';
 import JetAuthenticationCard from '@/Jetstream/AuthenticationCard.vue';

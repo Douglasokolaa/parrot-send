@@ -2,7 +2,6 @@
 import Welcome from '@/Jetstream/Welcome.vue';
 </script>
 
-
 <template>
     <main >
         <div class="py-12">

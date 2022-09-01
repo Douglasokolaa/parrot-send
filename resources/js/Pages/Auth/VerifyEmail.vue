@@ -1,3 +1,10 @@
+<script>
+import BlankLayout from "../../Layouts/BlankLayout.vue";
+
+export default {
+  layout: BlankLayout
+}
+</script>
 <script setup>
 import {computed} from 'vue';
 import {Head, Link, useForm} from '@inertiajs/inertia-vue3';

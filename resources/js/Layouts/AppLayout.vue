@@ -29,6 +29,16 @@ onMounted(() => {
   dom("body").removeClass("error-page").removeClass("login").addClass("main");
   formattedMenu.value = $h.toRaw(sideMenu.value);
 });
+// Success notification
+const successNotification = ref();
+provide("bind[successNotification]", (el) => {
+// Binding
+  successNotification.value = el;
+});
+const notificationToggle = () => {
+// Show notification
+  successNotification.value.showToast();
+};
 </script>
 
 <template>
@@ -135,5 +145,15 @@ onMounted(() => {
       </div>
       <!-- END: Content -->
     </div>
+    <!-- BEGIN: Notification Content -->
+    <Notification refKey="successNotification" class="flex">
+      <CheckCircleIcon class="text-success" />
+      <div class="ml-4 mr-4">
+        <div class="font-medium">Message Saved!</div>
+        <div class="text-slate-500 mt-1">
+          The message will be sent in 5 minutes.
+        </div>
+      </div>
+    </Notification>
   </div>
 </template>

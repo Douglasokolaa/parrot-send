@@ -1,3 +1,10 @@
+<script>
+import BlankLayout from "@/Layouts/BlankLayout.vue";
+
+export default {
+  layout: BlankLayout
+}
+</script>
 <script setup>
 import { Head, Link } from '@inertiajs/inertia-vue3';
 import DarkModeSwitcher from "@/Components/dark-mode-switcher/Main.vue";
