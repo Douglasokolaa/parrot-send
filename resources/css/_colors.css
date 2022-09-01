@@ -48,9 +48,9 @@
     --color-danger: theme("colors.rgb.red.600");
     --color-light: theme("colors.rgb.slate.100");
     --color-dark: theme("colors.rgb.slate.800");
-    &.dark {
-        --color-primary: theme("colors.rgb.blue.700");
-    }
+&.dark {
+     --color-primary: theme("colors.rgb.blue.700");
+ }
 }
 
 /* Theme 2 colors */
@@ -64,9 +64,9 @@
     --color-danger: theme("colors.rgb.red.700");
     --color-light: theme("colors.rgb.slate.100");
     --color-dark: theme("colors.rgb.slate.800");
-    &.dark {
-        --color-primary: theme("colors.rgb.blue.800");
-    }
+&.dark {
+     --color-primary: theme("colors.rgb.blue.800");
+ }
 }
 
 /* Theme 3 colors */
@@ -80,9 +80,9 @@
     --color-danger: theme("colors.rgb.rose.600");
     --color-light: theme("colors.rgb.slate.100");
     --color-dark: theme("colors.rgb.slate.800");
-    &.dark {
-        --color-primary: theme("colors.rgb.emerald.800");
-    }
+&.dark {
+     --color-primary: theme("colors.rgb.emerald.800");
+ }
 }
 
 /* Theme 4 colors */
@@ -96,7 +96,7 @@
     --color-danger: theme("colors.rgb.red.700");
     --color-light: theme("colors.rgb.slate.100");
     --color-dark: theme("colors.rgb.slate.800");
-    &.dark {
-        --color-primary: theme("colors.rgb.indigo.700");
-    }
+&.dark {
+     --color-primary: theme("colors.rgb.indigo.700");
+ }
 }

@@ -1,9 +1,11 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
+import { splitVendorChunkPlugin } from 'vite'
 
 export default defineConfig({
     plugins: [
+        splitVendorChunkPlugin(),
         laravel({
             input: 'resources/js/app.js',
             ssr: 'resources/js/ssr.js',
@@ -20,6 +22,7 @@ export default defineConfig({
     resolve: {
         alias: {
             '@': '/resources/js',
+            '@/asset/images': '/resources/images',
             'ziggy': '/vendor/tightenco/ziggy/src/js',
             'ziggy-vue': '/vendor/tightenco/ziggy/src/js/vue',
         }
