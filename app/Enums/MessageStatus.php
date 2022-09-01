@@ -4,6 +4,8 @@ namespace App\Enums;
 
 enum MessageStatus: int
 {
+    use EnumHelper;
+
     case scheduled = 0;
     case failed = 1;
     case bounced = 2;
