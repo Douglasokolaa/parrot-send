@@ -20,7 +20,7 @@ class ContactTest extends TestCase
         $phonebook = Phonebook::factory()->create(['team_id' => $user->currentTeam->id]);
 
         $this->assertDatabaseCount('contacts', 0);
-        $response = $this->post("phonebooks/$phonebook->id/contacts", Contact::factory()->raw([
+        $response = $this->post("phonebooks/$phonebook->slug/contacts", Contact::factory()->raw([
             'phone'         => '08130000000',
             'phone_country' => 'NG'
         ]));
@@ -71,7 +71,7 @@ class ContactTest extends TestCase
         $file = UploadedFile::fake()->createWithContent('test.csv', $content);
 
         $this->assertDatabaseCount('contacts', 0);
-        $response = $this->post("/phonebooks/$phonebook->id/import", ['file' => $file]);
+        $response = $this->post("/phonebooks/$phonebook->slug/import", ['file' => $file]);
 
         $this->assertAuthenticatedAs($user);
         $response->assertSessionHasNoErrors()->assertRedirect();

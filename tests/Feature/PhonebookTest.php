@@ -4,6 +4,7 @@ use App\Enums\PhonebookStatus;
 use App\Models\Phonebook;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Inertia\Testing\AssertableInertia as Assert;
 use Tests\TestCase;
 
 class PhonebookTest extends TestCase
@@ -12,8 +13,9 @@ class PhonebookTest extends TestCase
 
     public function testCreatePhonebook()
     {
+        $this->withoutExceptionHandling();
         $this->actingAs($user = User::factory()->withPersonalTeam()->create());
-        $response = $this->post('/phonebooks', Phonebook::make(['name' => 'book 1'])->toArray());
+        $response = $this->post('/phonebooks', Phonebook::factory()->raw(['name' => 'book 1']));
 
         $this->assertAuthenticated();
         $response->assertRedirect()->assertSessionHasNoErrors();
@@ -24,7 +26,7 @@ class PhonebookTest extends TestCase
     {
         $this->actingAs($user = User::factory()->withPersonalTeam()->create());
         $phonebook = Phonebook::factory()->create(['team_id' => $user->currentTeam->id]);
-        $response = $this->put('/phonebooks/' . $phonebook->id, ['name' => 'Updated Book', 'status' => PhonebookStatus::Active->value]);
+        $response = $this->put('/phonebooks/' . $phonebook->slug, ['name' => 'Updated Book', 'status' => PhonebookStatus::Active->value]);
 
         $this->assertAuthenticated();
         $response->assertRedirect()->assertSessionHasNoErrors();
@@ -36,8 +38,23 @@ class PhonebookTest extends TestCase
         $this->actingAs($user = User::factory()->withPersonalTeam()->create());
         $group = Phonebook::factory()->create(['team_id' => $user->currentTeam]);
 
-        $response = $this->delete("phonebooks/$group->id");
+        $response = $this->delete("phonebooks/$group->slug");
         $response->assertRedirect();
         $this->assertDatabaseCount('phonebooks', 0);
+    }
+
+    public function testViewPhonebooksIndex()
+    {
+        $this->actingAs($user = User::factory()->withPersonalTeam()->create());
+        Phonebook::factory()->create(['team_id' => $user->currentTeam]);
+
+        $response = $this->get('/phonebooks');
+        $this->assertAuthenticated();
+        $response->assertOk()
+                 ->assertInertia(fn(Assert $page) => $page
+                     ->component('Phonebook/Index')
+                     ->has('phonebooks')
+                     ->has('canCreatePhonebook')
+                 );
     }
 }
