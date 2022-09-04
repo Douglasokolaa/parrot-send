@@ -110,6 +110,7 @@ jobs:
           name: Frontend Test
           command: |
             npm run test:cypress
+
   test-frontend:
     docker:
       - image: cimg/php:8.1-browsers

@@ -3,8 +3,8 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build && vite build --ssr",
-        "test:cypress": "php artisan serve --env=cypress & cypress run",
-        "preview": "php artisan serve --env=cypress & cypress open"
+        "test:cypress": "php artisan serve --env=cypress --port=8081 & cypress run",
+        "preview": "php artisan serve --env=cypress --port=8081 & cypress open"
     },
     "devDependencies": {
         "@inertiajs/inertia": "^0.11.0",
