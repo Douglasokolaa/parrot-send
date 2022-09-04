@@ -76,7 +76,7 @@
     "name": "login",
     "domain": null,
     "action": "Laravel\\Fortify\\Http\\Controllers\\AuthenticatedSessionController@create",
-    "uri": "login",
+    "uri": "auth/login",
     "method": [
       "GET",
       "HEAD"
@@ -96,7 +96,7 @@
     "name": "logout",
     "domain": null,
     "action": "Laravel\\Fortify\\Http\\Controllers\\AuthenticatedSessionController@destroy",
-    "uri": "logout",
+    "uri": "auth/logout",
     "method": [
       "POST"
     ]
@@ -105,7 +105,7 @@
     "name": "password.request",
     "domain": null,
     "action": "Laravel\\Fortify\\Http\\Controllers\\PasswordResetLinkController@create",
-    "uri": "forgot-password",
+    "uri": "auth/forgot-password",
     "method": [
       "GET",
       "HEAD"
@@ -115,7 +115,7 @@
     "name": "password.reset",
     "domain": null,
     "action": "Laravel\\Fortify\\Http\\Controllers\\NewPasswordController@create",
-    "uri": "reset-password/{token}",
+    "uri": "auth/reset-password/{token}",
     "method": [
       "GET",
       "HEAD"
@@ -125,7 +125,7 @@
     "name": "password.email",
     "domain": null,
     "action": "Laravel\\Fortify\\Http\\Controllers\\PasswordResetLinkController@store",
-    "uri": "forgot-password",
+    "uri": "auth/forgot-password",
     "method": [
       "POST"
     ]
@@ -134,7 +134,7 @@
     "name": "password.update",
     "domain": null,
     "action": "Laravel\\Fortify\\Http\\Controllers\\NewPasswordController@store",
-    "uri": "reset-password",
+    "uri": "auth/reset-password",
     "method": [
       "POST"
     ]
@@ -143,7 +143,7 @@
     "name": "register",
     "domain": null,
     "action": "Laravel\\Fortify\\Http\\Controllers\\RegisteredUserController@create",
-    "uri": "register",
+    "uri": "auth/register",
     "method": [
       "GET",
       "HEAD"
@@ -153,7 +153,7 @@
     "name": "verification.notice",
     "domain": null,
     "action": "Laravel\\Fortify\\Http\\Controllers\\EmailVerificationPromptController@__invoke",
-    "uri": "email/verify",
+    "uri": "auth/email/verify",
     "method": [
       "GET",
       "HEAD"
@@ -163,7 +163,7 @@
     "name": "verification.verify",
     "domain": null,
     "action": "Laravel\\Fortify\\Http\\Controllers\\VerifyEmailController@__invoke",
-    "uri": "email/verify/{id}/{hash}",
+    "uri": "auth/email/verify/{id}/{hash}",
     "method": [
       "GET",
       "HEAD"
@@ -173,7 +173,7 @@
     "name": "verification.send",
     "domain": null,
     "action": "Laravel\\Fortify\\Http\\Controllers\\EmailVerificationNotificationController@store",
-    "uri": "email/verification-notification",
+    "uri": "auth/email/verification-notification",
     "method": [
       "POST"
     ]
@@ -182,7 +182,7 @@
     "name": "user-profile-information.update",
     "domain": null,
     "action": "Laravel\\Fortify\\Http\\Controllers\\ProfileInformationController@update",
-    "uri": "user/profile-information",
+    "uri": "auth/user/profile-information",
     "method": [
       "PUT"
     ]
@@ -191,7 +191,7 @@
     "name": "user-password.update",
     "domain": null,
     "action": "Laravel\\Fortify\\Http\\Controllers\\PasswordController@update",
-    "uri": "user/password",
+    "uri": "auth/user/password",
     "method": [
       "PUT"
     ]
@@ -200,7 +200,7 @@
     "name": "password.confirmation",
     "domain": null,
     "action": "Laravel\\Fortify\\Http\\Controllers\\ConfirmedPasswordStatusController@show",
-    "uri": "user/confirmed-password-status",
+    "uri": "auth/user/confirmed-password-status",
     "method": [
       "GET",
       "HEAD"
@@ -210,7 +210,7 @@
     "name": "password.confirm",
     "domain": null,
     "action": "Laravel\\Fortify\\Http\\Controllers\\ConfirmablePasswordController@store",
-    "uri": "user/confirm-password",
+    "uri": "auth/user/confirm-password",
     "method": [
       "POST"
     ]
@@ -219,7 +219,7 @@
     "name": "two-factor.login",
     "domain": null,
     "action": "Laravel\\Fortify\\Http\\Controllers\\TwoFactorAuthenticatedSessionController@create",
-    "uri": "two-factor-challenge",
+    "uri": "auth/two-factor-challenge",
     "method": [
       "GET",
       "HEAD"
@@ -229,7 +229,7 @@
     "name": "two-factor.enable",
     "domain": null,
     "action": "Laravel\\Fortify\\Http\\Controllers\\TwoFactorAuthenticationController@store",
-    "uri": "user/two-factor-authentication",
+    "uri": "auth/user/two-factor-authentication",
     "method": [
       "POST"
     ]
@@ -238,7 +238,7 @@
     "name": "two-factor.confirm",
     "domain": null,
     "action": "Laravel\\Fortify\\Http\\Controllers\\ConfirmedTwoFactorAuthenticationController@store",
-    "uri": "user/confirmed-two-factor-authentication",
+    "uri": "auth/user/confirmed-two-factor-authentication",
     "method": [
       "POST"
     ]
@@ -247,7 +247,7 @@
     "name": "two-factor.disable",
     "domain": null,
     "action": "Laravel\\Fortify\\Http\\Controllers\\TwoFactorAuthenticationController@destroy",
-    "uri": "user/two-factor-authentication",
+    "uri": "auth/user/two-factor-authentication",
     "method": [
       "DELETE"
     ]
@@ -256,7 +256,7 @@
     "name": "two-factor.qr-code",
     "domain": null,
     "action": "Laravel\\Fortify\\Http\\Controllers\\TwoFactorQrCodeController@show",
-    "uri": "user/two-factor-qr-code",
+    "uri": "auth/user/two-factor-qr-code",
     "method": [
       "GET",
       "HEAD"
@@ -266,7 +266,7 @@
     "name": "two-factor.secret-key",
     "domain": null,
     "action": "Laravel\\Fortify\\Http\\Controllers\\TwoFactorSecretKeyController@show",
-    "uri": "user/two-factor-secret-key",
+    "uri": "auth/user/two-factor-secret-key",
     "method": [
       "GET",
       "HEAD"
@@ -276,7 +276,7 @@
     "name": "two-factor.recovery-codes",
     "domain": null,
     "action": "Laravel\\Fortify\\Http\\Controllers\\RecoveryCodeController@index",
-    "uri": "user/two-factor-recovery-codes",
+    "uri": "auth/user/two-factor-recovery-codes",
     "method": [
       "GET",
       "HEAD"
@@ -504,6 +504,16 @@
     "uri": "_ignition/update-config",
     "method": [
       "POST"
+    ]
+  },
+  "switch-theme": {
+    "name": "switch-theme",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\HomeController@theme",
+    "uri": "switch-theme",
+    "method": [
+      "GET",
+      "HEAD"
     ]
   },
   "home": {

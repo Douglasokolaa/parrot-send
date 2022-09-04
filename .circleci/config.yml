@@ -1,6 +1,58 @@
 version: 2.1
 
 orbs:
+  slack: circleci/slack@4.1
+
+commands:
+  rollback:
+    description: Revert the last migration if successfully run in the current workflow.
+    steps:
+      - run:
+          name: Revert migrations
+          when: on_fail
+          command: |
+            # Change when project is ready to go live
+            php artisan migrate:rollback
+
+  restore-dependencies:
+    description: Restores FE and BE dependencies cache
+    steps:
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "composer.lock" }}
+            - v1-dependencies-
+      - restore_cache:
+          keys:
+            - node-v1-{{ checksum "package-lock.json" }}
+            - node-v1-
+  setup-deploy-machine:
+    description: install required dependencies
+    steps:
+      - run:
+          name: Install utilities
+          command: |
+            sudo apt update -y
+            sudo apt -y upgrade
+            sudo apt install -y tar gzip
+      - run:
+          name: Install nvm, node, npm
+          command: |
+            curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash 
+            source /home/circleci/.profile
+            nvm install 16.15
+  prepare-test-env:
+    description: Prepare test env for FE &BE
+    steps:
+      - restore-dependencies
+      - run:
+          name: prepare the database
+          command: touch database/database.sqlite
+      - run:
+          name: Configure Backend
+          command: |
+            php -r "file_exists('.env') || copy('.env.example', '.env');"
+            php artisan key:generate
+            chmod -R 777 storage bootstrap/cache
 
 jobs:
   build:
@@ -11,7 +63,6 @@ jobs:
       - run: sudo apt update
       - run: sudo docker-php-ext-install zip
 
-      # Download and cache dependencies
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "composer.lock" }}
@@ -19,7 +70,7 @@ jobs:
 
       - run:
           name: Install Composer packages
-          command: composer install -n --prefer-dist
+          command: composer install
 
       - save_cache:
           key: v1-dependencies-{{ checksum "composer.lock" }}
@@ -35,38 +86,38 @@ jobs:
           name: Install node packages
           command: yarn install
 
+      - run:
+          name: build frontend
+          command: npm run build
+
       - save_cache:
           key: node-v1-{{ checksum "package-lock.json" }}
           paths:
-            - node_modules
+            - ./node_modules
+            - ./public/build
+            - /home/circleci/.cache/Cypress
 
-  test:
+  test-backend:
     docker:
       - image: cimg/php:8.1-browsers
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "composer.lock" }}
-            - v1-dependencies-
-      - restore_cache:
-          keys:
-            - node-v1-{{ checksum "package-lock.json" }}
-            - node-v1-
-      - run:
-          name: prepare the database
-          command: touch storage/testing.sqlite
-      # - run: php artisan migrate --env=testing --database=sqlite_testing --force
-      - run:
-          name: Configure Backend
-          command: |
-             php -r "file_exists('.env') || copy('.env.example', '.env');"
-             php artisan key:generate
-             chmod -R 777 storage bootstrap/cache
-      - run:
-          name: build frontend
-          command: npm run build
+      - prepare-test-env
       - run: php artisan test
+      - run:
+          name: Frontend Test
+          command: |
+            npm run test:cypress
+  test-frontend:
+    docker:
+      - image: cimg/php:8.1-browsers
+    steps:
+      - checkout
+      - prepare-test-env
+      - run:
+          name: Frontend Test
+          command: |
+            npm run test:cypress
 
   analyze:
     docker:
@@ -80,31 +131,57 @@ jobs:
       - run: npm i --package-lock-only
       - run: npm audit
 
-
-  create_infrastructure:
+  deploy:
     docker:
-      - image: amazon/aws-cli
+      - image: cimg/aws:2022.06.1
     steps:
       - checkout
+      - setup-deploy-machine
+      - add_ssh_keys:
+          fingerprints: [ "d7:01:aa:31:2d:55:5a:2c:e5:32:5b:a2:92:f7:ed:30" ]
+      - attach_workspace:
+          at: ~/
       - run:
-          name: Create Cloudformation Stack
+          name: Add server IP to ansible inventory
           command: |
-            aws cloudformation deploy \
-            --template-file .aws/template.yml \
-            --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5} \
-            --region $AWS_DEFAULT_REGION
-
+            echo $SERVER_IP >> .circleci/ansible/inventory.txt
+      - restore-dependencies
+      - run:
+          name: Deploy backend
+          command: |
+            npm i
+            npm run build
+            cd ..
+            
+            # make dir path 
+            mkdir -p .circleci/ansible/roles/deploy/files
+            
+            # Zip the directory
+            tar -C public/build -czvf .circleci/ansible/roles/deploy/files/artifact.tar.gz .
+            
+            cd .circleci/ansible
+            echo "Contents  of the inventory.txt file is -------"
+            cat inventory.txt
+            
+            ansible-playbook -i inventory.txt deploy.yml -vvv
 
 workflows:
-  backend:
+  app:
     jobs:
       - build
-      - test:
+      - test-backend:
+          requires:
+            - build
+      - test-frontend:
           requires:
             - build
       - analyze:
           requires:
-            - test
-#      - create_infrastructure:
-#          requires:
-#            - analyze
+            - test-frontend
+      - deploy:
+          requires:
+            - analyze
+          filters:
+            branches:
+              only:
+                - main

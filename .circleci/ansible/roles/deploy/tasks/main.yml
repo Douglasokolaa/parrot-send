@@ -1,0 +1,30 @@
+- name: "Shut down app"
+  shell: |
+    cd /var/www/parrot
+    php artisan down
+    
+
+- name: "Checkout new code"
+  shell: |
+    cd /var/www/parrot
+    git checkout main
+    git pull origin main
+
+- name: "Unzip and navigate in actifact"
+  unarchive:
+    src: artifact.tar.gz
+    dest: /var/www/parrot/public/build
+
+- name: "Setup app"
+  shell: |
+    cd /var/www/parrot
+    composer install
+    php artisan clear-compiled
+    php artisan migrate
+    php artisan optimize
+
+- name: "start app"
+  shell: |
+    cd /var/www/parrot
+    php artisan up
+    echo "Deployment finished!"

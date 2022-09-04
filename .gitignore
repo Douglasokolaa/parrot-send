@@ -15,3 +15,5 @@ yarn-error.log
 /.vscode
 /public/build
 /bootstrap/ssr
+/tests/cypress/screenshots
+/tests/cypress/videos

@@ -75,6 +75,7 @@ const submit = () => {
             required
             autocomplete="password"
             v-model="form.password"
+            data-cy="password"
         >
       </div>
       <div class="intro-x flex text-slate-600 dark:text-slate-500 text-xs sm:text-sm mt-4">
@@ -101,7 +102,9 @@ const submit = () => {
       <div class="intro-x mt-5 xl:mt-8 text-center xl:text-left">
         <button
             :class="{ 'opacity-25': form.processing }" :disabled="form.processing"
-            class="btn btn-primary py-3 px-4 w-full xl:w-32 xl:mr-3 align-top">Login
+            class="btn btn-primary py-3 px-4 w-full xl:w-32 xl:mr-3 align-top"
+            data-cy="login"
+        >Login
         </button>
         <Link
             :href="route('register')"

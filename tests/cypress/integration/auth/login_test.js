@@ -1,4 +1,4 @@
-describe("Login Test", () => {
+describe.only("Login Test", () => {
     it('can login with correct details', () => {
         cy.visit({route: 'login'});
 
@@ -16,7 +16,7 @@ describe("Login Test", () => {
         cy.assertRedirect(Cypress.Laravel.route('dashboard'))
     })
 
-    test("Login fails with wrong credentials", ()=> {
+    it("Login fails with wrong credentials", ()=> {
         cy.visit({route: 'login'});
 
         cy.get('[data-cy=email]').type('no-user@parrot.test')
