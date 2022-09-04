@@ -174,12 +174,12 @@ workflows:
       - test-backend:
           requires:
             - build
-      - test-frontend:
-          requires:
-            - build
+#      - test-frontend:
+#          requires:
+#            - build
       - analyze:
           requires:
-            - test-frontend
+            - test-backend
       - deploy:
           requires:
             - analyze
