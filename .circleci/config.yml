@@ -19,12 +19,12 @@ commands:
     steps:
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "composer.lock" }}
-            - v1-dependencies-
+            - backed-dependencies-{{ .Branch }}-{{ checksum "composer.lock" }}
+            - backed-dependencies-{{ .Branch }}-
       - restore_cache:
           keys:
-            - node-v1-{{ checksum "package-lock.json" }}
-            - node-v1-
+            - frontend-{{ .Branch }}-{{ checksum "package-lock.json" }}
+            - frontend-{{ .Branch }}-
   setup-deploy-machine:
     description: install required dependencies
     steps:
@@ -65,33 +65,35 @@ jobs:
 
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "composer.lock" }}
-            - v1-dependencies-
+            - backed-dependencies-{{ .Branch }}-{{ checksum "composer.lock" }}
+            - backed-dependencies-{{ .Branch }}-
 
       - run:
           name: Install Composer packages
           command: composer install
 
       - save_cache:
-          key: v1-dependencies-{{ checksum "composer.lock" }}
+          key: backed-dependencies-{{ .Branch }}-{{ checksum "composer.lock" }}
           paths:
             - ./vendor
 
       - restore_cache:
           keys:
-            - node-v1-{{ checksum "package-lock.json" }}
-            - node-v1-
+            - frontend-{{ .Branch }}-{{ checksum "package-lock.json" }}
+            - frontend-{{ .Branch }}-
 
       - run:
           name: Install node packages
-          command: npm install
+          command: | 
+            npm install
+             $(npm bin)/cypress install
 
       - run:
           name: build frontend
           command: npm run build
 
       - save_cache:
-          key: node-v1-{{ checksum "package-lock.json" }}
+          key: frontend-{{ .Branch }}-{{ checksum "package-lock.json" }}
           paths:
             - ./node_modules
             - ./public/build
@@ -115,11 +117,6 @@ jobs:
       - checkout
       - prepare-test-env
       - run:
-          name: Cyress deps
-          command: |
-            sudo apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb -y
-            $(npm bin)/cypress verify
-      - run:
           name: Frontend Test
           command: |
             npm run test:cypress
@@ -131,8 +128,8 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - node-v1-{{ checksum "package-lock.json" }}
-            - node-v1-
+            - frontend-{{ .Branch }}-{{ checksum "package-lock.json" }}
+            - frontend-{{ .Branch }}-
       - run: npm audit
 
   deploy:
