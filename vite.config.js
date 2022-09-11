@@ -22,7 +22,7 @@ export default defineConfig({
     resolve: {
         alias: {
             '@': '/resources/js',
-            '@/asset/images': '/resources/images',
+            '@images': '/resources/images',
             'ziggy': '/vendor/tightenco/ziggy/src/js',
             'ziggy-vue': '/vendor/tightenco/ziggy/src/js/vue',
         }

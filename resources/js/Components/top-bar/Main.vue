@@ -1,5 +1,5 @@
 <script setup>
-import {ref} from "vue";
+import {inject, ref} from "vue";
 import {Inertia} from "@inertiajs/inertia";
 import {Link, useRemember} from '@inertiajs/inertia-vue3';
 
@@ -25,6 +25,9 @@ const showSearchDropdown = () => {
 const hideSearchDropdown = () => {
   searchDropdown.value = false;
 };
+
+const breadcrum = inject('breadcrum');
+
 </script>
 
 <template>
@@ -46,8 +49,8 @@ const hideSearchDropdown = () => {
       <!-- BEGIN: Breadcrumb -->
       <nav aria-label="breadcrumb" class="-intro-x h-[45px] mr-auto">
         <ol class="breadcrumb breadcrumb-light">
-          <li class="breadcrumb-item"><a :href="route('dashboard')">{{ $page.props.app.name }}</a></li>
-          <li class="breadcrumb-item active" aria-current="page">{{ $parent.$props.title }}</li>
+          <li class="breadcrumb-item"><Link :href="route('dashboard')">{{ $page.props.app.name }}</Link></li>
+          <li class="breadcrumb-item active" aria-current="page">{{ breadcrum }}</li>
         </ol>
       </nav>
       <!-- END: Breadcrumb -->
@@ -153,12 +156,12 @@ const hideSearchDropdown = () => {
           <BellIcon class="notification__icon dark:text-slate-500"/>
         </DropdownToggle>
         <DropdownMenu class="notification-content pt-2">
-          <DropdownContent tag="div" class="notification-content__box bg-primary">
+          <DropdownContent tag="div" class="notification-content__box">
             <div class="notification-content__title">Notifications</div>
             <div
                 v-for="(faker, fakerKey) in $_.take($f(), 5)"
                 :key="fakerKey"
-                class="cursor-pointer relative flex items-center"
+                class="cursor-pointer relative flex items-center hover:shadow-lg"
                 :class="{ 'mt-5': fakerKey }"
             >
               <div class="w-12 h-12 flex-none image-fit mr-1">

@@ -39,6 +39,12 @@ const notificationToggle = () => {
 // Show notification
   successNotification.value.showToast();
 };
+
+const breadcrum = ref()
+provide('breadcrum', breadcrum)
+
+breadcrum.value = 'test'
+
 </script>
 
 <template>
@@ -141,7 +147,7 @@ const notificationToggle = () => {
       <!-- END: Side Menu -->
       <!-- BEGIN: Content -->
       <div class="content">
-        <slot/>
+        <slot @title="title"/>
       </div>
       <!-- END: Content -->
     </div>

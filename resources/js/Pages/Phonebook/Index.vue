@@ -1,27 +1,37 @@
-<script>
-import {Head} from "@inertiajs/inertia-vue3";
+<script setup>
+import {Head, useForm} from "@inertiajs/inertia-vue3";
 import CreatePhoneBook from "./Partial/CreatePhoneBook.vue";
 import PhonebookTable from "./Partial/PhonebookTable.vue";
+import {inject, ref} from "vue";
+import TopHeading from "../../Components/table/TopHeading.vue";
 
-export default {
-  components: {PhonebookTable, CreatePhoneBook, Head},
-  props: {
-    canCreatePhonebook: Boolean,
-    phonebooks: Object,
-  },
-  data() {
-    return {
-      showCreatePhonebook: false,
-    }
-  },
+defineProps({
+  canCreatePhonebook: Boolean,
+  phonebooks: Object,
+});
+
+const breadcrum = inject('breadcrum');
+breadcrum.value = "Phonebooks"
+
+const showCreatePhonebook = ref(false);
+
+const phonebooksSearch = ref(useForm({search: route().params.search}));
+const searchPhonebooks = _ => {
+  phonebooksSearch.value.get(window.location)
 }
 </script>
 
 <template>
   <div>
     <Head title="Phonebooks"/>
+    <h2 class="intro-y text-lg font-medium mt-10">Phonebooks</h2>
+
     <div class="grid grid-cols-12 gap-6 mt-5">
-      <div
+      <top-heading
+          :searhField="phonebooksSearch"
+          :paginator="phonebooks"
+          name="Phonebooks"
+          @search="searchPhonebooks"
           class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2"
       >
         <button v-if="canCreatePhonebook"
@@ -54,10 +64,11 @@ export default {
           </DropdownMenu>
         </Dropdown>
 
-      </div>
-      <div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
-        <phonebook-table :phonebooks="phonebooks"/>
-      </div>
+      </top-heading>
+    </div>
+    <div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
+      <LoadingIcon icon="oval" class="inline-block h-6 text-center w-full" v-if="phonebooksSearch.processing"/>
+      <phonebook-table :phonebooks="phonebooks"/>
     </div>
     <CreatePhoneBook
         :show-create-phonebook="showCreatePhonebook"

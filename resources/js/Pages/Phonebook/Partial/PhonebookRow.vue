@@ -1,19 +1,19 @@
 <template>
   <tr class="intro-x">
     <td>
-      <a
+      <Link
           :href="route('phonebooks.show', phonebook.slug)"
           class="font-medium whitespace-nowrap"
-      >{{ phonebook.name }}</a>
+      >{{ phonebook.name }}</Link>
     </td>
     <td>
-      <a
+      <Link
           class="text-slate-500 flex items-center mr-3"
           :href="route('phonebooks.show', phonebook.slug)"
       >
         <ExternalLinkIcon class="w-4 h-4 mr-2"/>
         {{ phonebook.slug }}
-      </a>
+      </Link>
     </td>
     <td>
       <p class="font-medium text-center whitespace-nowrap">
@@ -50,9 +50,10 @@
   </tr>
 </template>
 <script setup>
+import { Link } from '@inertiajs/inertia-vue3';
 defineProps({
   phonebook: Object,
-})
+});
 
 const $emit = defineEmits(['deletePhonebook', 'editPhonebook']);
 

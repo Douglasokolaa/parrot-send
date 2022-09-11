@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\PhonebookStatus;
 use App\Models\Phonebook;
 use App\Policies\TeamPolicy;
+use App\ValueObject\Permissions;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -22,13 +23,18 @@ class PhonebookController extends Controller
     {
         return Inertia::render('Phonebook/Index', [
             'canCreatePhonebook' => $request->user()->can('create', Phonebook::class),
-            'phonebooks'         => Phonebook::query()->withCount(['contacts',])->paginate()->withQueryString(),
+            'phonebooks'         => Phonebook::query()->search($request->only(['search']))->withCount(['contacts',])->paginate()->withQueryString(),
         ]);
     }
 
-    public function show(Phonebook $phonebook)
+    public function show(Phonebook $phonebook): Response
     {
-//        Inertia::render('');
+        $phonebook->load('team');
+        return Inertia::render('Phonebook/Show', [
+            'contactPermissions' => new Permissions($phonebook, auth()->user()),
+            'phonebook' => $phonebook,
+            'contacts'=> $phonebook->contacts()->paginate(),
+        ]);
     }
 
     public function store(Request $request): RedirectResponse
@@ -50,6 +56,7 @@ class PhonebookController extends Controller
 
     public function destroy(Phonebook $phonebook): RedirectResponse
     {
+        Phonebook::all();
         \DB::transaction(function () use ($phonebook) {
             $phonebook->contacts()->delete();
             $phonebook->delete();

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\PhonebookStatus;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -45,5 +46,10 @@ class Phonebook extends Model
     {
         $this->slug = str($this->name)->slug();
         return $this;
+    }
+
+    public function scopeSearch(Builder $q, $params)
+    {
+        $q->when(isset($params['search']), fn($q) => $q->where('name', 'like', "{$params['search']}%s"));
     }
 }
