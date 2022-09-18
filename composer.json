@@ -12,6 +12,8 @@
         "laravel/jetstream": "^2.7",
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
+        "laravel/vapor-core": "^2.23",
+        "laravel/vapor-ui": "^1.5",
         "maatwebsite/excel": "^3.1",
         "propaganistas/laravel-phone": "^4.3",
         "tightenco/ziggy": "^1.0"

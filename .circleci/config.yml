@@ -84,7 +84,7 @@ jobs:
 
       - run:
           name: Install node packages
-          command: | 
+          command: |
             npm install
              $(npm bin)/cypress install
 
@@ -135,37 +135,25 @@ jobs:
 
   deploy:
     docker:
-      - image: cimg/aws:2022.06.1
+      - image: cimg/php:8.1-browsers
+        environment:
+          VAPOR_API_TOKEN: $VAPOR_API_TOKEN
     steps:
       - checkout
       - setup-deploy-machine
-      - add_ssh_keys:
-          fingerprints: [ "d7:01:aa:31:2d:55:5a:2c:e5:32:5b:a2:92:f7:ed:30" ]
       - attach_workspace:
           at: ~/
-      - run:
-          name: Add server IP to ansible inventory
-          command: |
-            echo $SERVER_IP >> .circleci/ansible/inventory.txt
       - restore-dependencies
       - run:
-          name: Deploy backend
-          command: |
-            npm i
-            npm run build
-            cd ..
-            
-            # make dir path 
-            mkdir -p .circleci/ansible/roles/deploy/files
-            
-            # Zip the directory
-            tar -C public/build -czvf .circleci/ansible/roles/deploy/files/artifact.tar.gz .
-            
-            cd .circleci/ansible
-            echo "Contents  of the inventory.txt file is -------"
-            cat inventory.txt
-            
-            ansible-playbook -i inventory.txt deploy.yml -vvv
+          name: Require Vapor CLI
+          command: composer global require laravel/vapor-cli
+      - run:
+          name: Install Project Dependencies
+          command: composer install --no-interaction --prefer-dist --optimize-autoloader
+      - run:
+          name: Deploy Environment
+          command: vapor deploy dev
+
 
 workflows:
   app:
@@ -174,9 +162,9 @@ workflows:
       - test-backend:
           requires:
             - build
-#      - test-frontend:
-#          requires:
-#            - build
+      #      - test-frontend:
+      #          requires:
+      #            - build
       - analyze:
           requires:
             - test-backend
@@ -186,4 +174,4 @@ workflows:
           filters:
             branches:
               only:
-                - main
+                - dev
