@@ -106,10 +106,6 @@ jobs:
       - checkout
       - prepare-test-env
       - run: php artisan test
-      - run:
-          name: Frontend Test
-          command: |
-            npm run test:cypress
 
   test-frontend:
     docker:
@@ -117,10 +113,7 @@ jobs:
     steps:
       - checkout
       - prepare-test-env
-      - run:
-          name: Frontend Test
-          command: |
-            npm run test:cypress
+      - run: npm run test:cypress
 
   analyze:
     docker:
